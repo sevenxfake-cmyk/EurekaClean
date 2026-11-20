@@ -329,9 +329,12 @@
     if (!badge) return;
 
     let count = 0;
-    if (isCustomerSession(session)) {
+    const cartSession = isCustomerSession(session)
+      ? session
+      : (!session && window.EUREKA_DEMO_ENABLED ? window.EUREKA_DEMO_GUEST_SESSION : null);
+    if (isCustomerSession(cartSession)) {
       try {
-        const raw = JSON.parse(localStorage.getItem(`${PROFORMA_KEY_PREFIX}${normalizeEmail(session.email)}`) || "[]");
+        const raw = JSON.parse(localStorage.getItem(`${PROFORMA_KEY_PREFIX}${normalizeEmail(cartSession.email)}`) || "[]");
         count = Array.isArray(raw)
           ? raw.reduce((total, item) => total + Math.max(1, Number(item && item.qty ? item.qty : 1) || 1), 0)
           : 0;
@@ -443,7 +446,7 @@
     if (!proformaItem.isConnected) {
       navList.insertBefore(proformaItem, slot.closest("ul.navbar-nav") ? slot : null);
     }
-    proformaItem.hidden = !isCustomerSession(session);
+    proformaItem.hidden = !isCustomerSession(session) && !window.EUREKA_DEMO_ENABLED;
     if (proformaItem.hidden) return;
 
     const currentPage = String(window.location.pathname || "").split("/").pop().toLowerCase();

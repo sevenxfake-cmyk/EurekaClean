@@ -81,9 +81,10 @@
       : null;
     if (session) return session;
     if (previewStore && typeof previewStore.getSession === "function") {
-      return previewStore.getSession();
+      const demoSession = previewStore.getSession();
+      if (demoSession) return demoSession;
     }
-    return null;
+    return window.EUREKA_DEMO_ENABLED ? window.EUREKA_DEMO_GUEST_SESSION : null;
   }
 
   function isAdminSession(session) {

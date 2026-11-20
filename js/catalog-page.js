@@ -251,7 +251,7 @@
   function openProformaDrawer() {
     const session = getSession();
     if (!session || !session.email) {
-      showBottomNotice("Necesitas iniciar sesion para ver tu proforma.");
+      showBottomNotice("Puedes revisar tu carrito sin iniciar sesión.");
       return;
     }
     if (!isCustomerSession(session)) {
@@ -1073,9 +1073,10 @@
       : null;
     if (session) return session;
     if (previewStore && previewStore.enabled && typeof previewStore.getSession === "function") {
-      return previewStore.getSession();
+      const demoSession = previewStore.getSession();
+      if (demoSession) return demoSession;
     }
-    return null;
+    return window.EUREKA_DEMO_ENABLED ? window.EUREKA_DEMO_GUEST_SESSION : null;
   }
 
   function isAdminSession(session) {
@@ -1827,7 +1828,7 @@
     if (!session || !session.email) {
       if (isRedirectingToLogin) return false;
       isRedirectingToLogin = true;
-      showBottomNotice("Necesitas iniciar sesion para crear tu proforma.");
+      showBottomNotice("Puedes agregar productos sin iniciar sesión.");
       setTimeout(() => {
         window.location.href = "login.html";
       }, 1500);

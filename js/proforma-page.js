@@ -25,6 +25,7 @@
     const customerDistrictInput = document.getElementById("customerDistrictInput");
     const customerAddressInput = document.getElementById("customerAddressInput");
     const customerPhoneInput = document.getElementById("customerPhoneInput");
+    const customerEmailInput = document.getElementById("customerEmailInput");
     const saveRucBtn = document.getElementById("saveRucBtn");
     const summaryItems = document.getElementById("summaryItems");
     const summaryTotal = document.getElementById("summaryTotal");
@@ -222,9 +223,10 @@
         : null;
       if (session) return session;
       if (isDesignPreview() && previewStore && typeof previewStore.getSession === "function") {
-        return previewStore.getSession();
+        const demoSession = previewStore.getSession();
+        if (demoSession) return demoSession;
       }
-      return null;
+      return window.EUREKA_DEMO_ENABLED ? window.EUREKA_DEMO_GUEST_SESSION : null;
     }
 
     function getSessionToken(session) {
@@ -377,7 +379,7 @@
     }
 
     function ensurePreviewProformaSeed(session) {
-      if (!isDesignPreview() || !isCustomerSession(session)) return;
+      if (window.EUREKA_DEMO_ENABLED || !isDesignPreview() || !isCustomerSession(session)) return;
 
       const currentItems = getProformaItems(session);
       if (!currentItems.length) {
@@ -445,7 +447,7 @@
         createdAt : String(record.createdAt || "").trim()
       };
 
-      if (!safeRecord.id || !safeRecord.serial || !safeRecord.customerRuc || !safeRecord.items.length) return null;
+      if (!safeRecord.id || !safeRecord.serial || !safeRecord.items.length) return null;
       if (!safeRecord.customerName || isSuspiciousLabel(safeRecord.customerName)) return null;
       if (!Number.isFinite(safeRecord.totalItems) || safeRecord.totalItems < 0) return null;
       if (!Number.isFinite(safeRecord.totalAmount) || safeRecord.totalAmount < 0) return null;
@@ -729,15 +731,18 @@
         customerDepartment: sanitizeLabel(customerDepartmentInput && customerDepartmentInput.value ? customerDepartmentInput.value : ""),
         customerDistrict: sanitizeLabel(customerDistrictInput && customerDistrictInput.value ? customerDistrictInput.value : ""),
         customerAddress: sanitizeLabel(customerAddressInput && customerAddressInput.value ? customerAddressInput.value : ""),
-        customerPhone: sanitizePhone(customerPhoneInput && customerPhoneInput.value ? customerPhoneInput.value : "")
+        customerPhone: sanitizePhone(customerPhoneInput && customerPhoneInput.value ? customerPhoneInput.value : ""),
+        customerEmail: normalizeEmail(customerEmailInput && customerEmailInput.value ? customerEmailInput.value : "")
       };
     }
 
     function validateCustomerDeliveryData(data) {
+      if (!/^\+?\d{7,15}$/.test(data.customerPhone)) return "Ingresa un número de teléfono válido para coordinar.";
+      if (data.customerEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.customerEmail)) return "Ingresa un correo válido o deja ese campo vacío.";
+      if (window.EUREKA_DEMO_ENABLED) return "";
       if (!data.customerDepartment) return "Selecciona el departamento.";
       if (!data.customerDistrict) return "Selecciona el distrito.";
       if (!data.customerAddress || data.customerAddress.length < 6) return "Ingresa una direccion exacta valida.";
-      if (!/^\+?\d{7,15}$/.test(data.customerPhone)) return "Ingresa un numero de telefono valido.";
       return "";
     }
 
@@ -768,7 +773,7 @@
       const totals = calculateTotals(items);
       const safeName = sanitizeLabel(customerName) || String(session.name || "").trim() || usernameFromEmail(session.email);
 
-      return {  id : `prf_${now.getTime()}_${Math.floor(Math.random() * 1000)}`,  serial : buildProformaSerial(history.length),  issuedAt : now.toISOString(),  customerName : safeName,  customerEmail : normalizeEmail(session.email),  customerRuc : String(ruc || "").trim(), customerDepartment : sanitizeLabel(deliveryData.customerDepartment), customerDistrict : sanitizeLabel(deliveryData.customerDistrict), customerAddress : sanitizeLabel(deliveryData.customerAddress), customerPhone : sanitizePhone(deliveryData.customerPhone), totalItems : totals.items,  totalAmount : totals.total,  items : items.map((item) => ({  name : sanitizeLabel(item.name),  code : sanitizeLabel(item.code),  qty : Math.max(1, Number(item.qty || 1)),  price : Number(item.price || 0),  originalPrice : Number(item.originalPrice || 0),  discountPct : Math.max(0, Number(item.discountPct || 0)),  isPromotion : Boolean(item.isPromotion) || Number(item.discountPct || 0) > 0 || Number(item.originalPrice || 0) > Number(item.price || 0)
+      return {  id : `prf_${now.getTime()}_${Math.floor(Math.random() * 1000)}`,  serial : buildProformaSerial(history.length),  issuedAt : now.toISOString(),  customerName : safeName,  customerEmail : normalizeEmail(deliveryData.customerEmail || (String(session.email || "").endsWith(".local") ? "" : session.email)),  customerRuc : String(ruc || "").trim(), customerDepartment : sanitizeLabel(deliveryData.customerDepartment), customerDistrict : sanitizeLabel(deliveryData.customerDistrict), customerAddress : sanitizeLabel(deliveryData.customerAddress), customerPhone : sanitizePhone(deliveryData.customerPhone), totalItems : totals.items,  totalAmount : totals.total,  items : items.map((item) => ({  name : sanitizeLabel(item.name),  code : sanitizeLabel(item.code),  qty : Math.max(1, Number(item.qty || 1)),  price : Number(item.price || 0),  originalPrice : Number(item.originalPrice || 0),  discountPct : Math.max(0, Number(item.discountPct || 0)),  isPromotion : Boolean(item.isPromotion) || Number(item.discountPct || 0) > 0 || Number(item.originalPrice || 0) > Number(item.price || 0)
         }))
       };
     }
@@ -1179,7 +1184,7 @@
 
       if (!session || !session.email) {
         customerPanel.classList.add("d-none");
-        setAccessAlert("warning", "Debes iniciar sesion para usar el creador de proforma.");
+        setAccessAlert("warning", "Puedes crear tu proforma como invitado en esta demostración.");
         releaseProformaPreload();
         return;
       }
@@ -1202,11 +1207,15 @@
       if (customerDistrictInput) customerDistrictInput.value = String(meta.customerDistrict || "");
       if (customerAddressInput) customerAddressInput.value = String(meta.customerAddress || "");
       if (customerPhoneInput) customerPhoneInput.value = String(meta.customerPhone || "");
+      if (customerEmailInput) customerEmailInput.value = String(meta.customerEmail || (String(session.email || "").endsWith(".local") ? "" : session.email));
+      if (window.EUREKA_DEMO_ENABLED && customerNameInput && !customerNameInput.value && session.role !== "guest") {
+        customerNameInput.value = String(session.name || "");
+      }
       renderProformaItems();
       paintHistory(getProformaHistory(session));
       releaseProformaPreload();
       if (isDesignPreview()) {
-        setAccessAlert("info", "Vista local de diseno: los datos de proforma se guardan solo en este navegador.");
+        setAccessAlert("info", "Modo de prueba: no es una boleta válida ni un cobro. La proforma y el carrito se guardan solo en este navegador.");
         return;
       }
       renderHistory()
@@ -1298,14 +1307,14 @@
       if (!isCustomerSession(session)) return;
 
       const ruc = String(rucInput.value || "").trim();
-      if (!validateRuc(ruc)) {
+      if ((!window.EUREKA_DEMO_ENABLED || ruc) && !validateRuc(ruc)) {
         setAccessAlert("warning", "Ingresa un RUC valido de 11 digitos que inicie en 10 o 20.");
         return;
       }
 
       const customerName = sanitizeLabel(customerNameInput.value || "");
       if (!customerName) {
-        setAccessAlert("warning", "Consulta SUNAT para obtener el nombre o razon social antes de guardar.");
+        setAccessAlert("warning", "Escribe el nombre de la persona interesada.");
         return;
       }
 
@@ -1410,14 +1419,14 @@
       }
 
       const ruc = String(rucInput.value || "").trim();
-      if (!validateRuc(ruc)) {
-        setAccessAlert("warning", "Debes registrar un RUC valido (10/20) antes de crear la proforma.");
+      if ((!window.EUREKA_DEMO_ENABLED || ruc) && !validateRuc(ruc)) {
+        setAccessAlert("warning", "Ingresa un RUC válido o déjalo vacío en esta demostración.");
         return;
       }
 
       const customerName = sanitizeLabel(customerNameInput.value || "");
       if (!customerName) {
-        setAccessAlert("warning", "Consulta SUNAT para completar el nombre o razon social del RUC.");
+        setAccessAlert("warning", "Escribe el nombre de la persona interesada.");
         return;
       }
 
