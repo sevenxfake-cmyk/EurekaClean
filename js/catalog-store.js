@@ -16,13 +16,15 @@
   let backendEnabled = false;
   let backendCatalogCache = null;
   let backendRefreshPromise = null;
+  let staticCatalogCache = null;
+  let staticCatalogPromise = null;
 
   function clone(value) {
     return JSON.parse(JSON.stringify(value));
   }
 
   function getFallbackBaseCatalogData() {
-    return {};
+    return staticCatalogCache ? clone(staticCatalogCache) : {};
   }
 
   function sanitizeText(value, maxLen) {
@@ -280,10 +282,12 @@
     if (backendRefreshPromise) return backendRefreshPromise;
 
     backendRefreshPromise = (async () => {
+      const hadStaticCatalog = Boolean(staticCatalogCache);
+      await loadStaticCatalog();
       const response = await apiRequest("GET", "/api/catalog", null, false);
       if (!response.ok || !response.payload || typeof response.payload.catalog !== "object") {
         backendEnabled = false;
-        return false;
+        return !hadStaticCatalog && Boolean(staticCatalogCache);
       }
 
       const nextCatalog = normalizeBackendCatalog(response.payload.catalog);
@@ -305,11 +309,36 @@
   }
 
   function getOfflineBaseCatalogData() {
+    if (staticCatalogCache) return clone(staticCatalogCache);
     const storedCatalog = readStoredBackendCatalog();
     if (storedCatalog) {
       return clone(storedCatalog);
     }
     return getFallbackBaseCatalogData();
+  }
+
+  async function loadStaticCatalog() {
+    if (staticCatalogPromise) return staticCatalogPromise;
+
+    staticCatalogPromise = (async () => {
+      try {
+        const response = await fetch("/catalogo_exportado.json", { cache: "no-cache" });
+        if (!response.ok) return false;
+        const payload = await response.json();
+        const normalized = normalizeBackendCatalog(payload);
+        if (!Object.keys(normalized).length) return false;
+
+        const changed = !catalogsEqual(staticCatalogCache, normalized);
+        staticCatalogCache = normalized;
+        if (changed) emitCatalogChange();
+        return changed;
+      } catch (error) {
+        console.warn("No se pudo cargar el catalogo publico de respaldo.", error);
+        return false;
+      }
+    })();
+
+    return staticCatalogPromise;
   }
 
   function getCatalogConfigMap() {
@@ -781,4 +810,7 @@
     renameCustomProductCode,
     deleteCustomProduct
   };
+
+  // El frontend muestra el catálogo exportado incluso sin una API Python activa.
+  loadStaticCatalog();
 })();
