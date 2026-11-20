@@ -1,0 +1,855 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesiÃ³n | EUREKACLEAN</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style-login.css?v=20260604scan2">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="stylesheet" href="css/style-auth-admin.css?v=20260605noflicker1">
+  <link rel="stylesheet" href="css/style-mobile.css?v=20260605noflicker1">
+  <script src="js/runtime-config.js?v=20260604scan2"></script>
+  <script src="js/app-config.js?v=20260604scan2"></script>
+  <script src="js/auth-admin-flag.js?v=20260605noflicker1"></script>
+</head>
+
+<body class="page-login">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+    <div class="container nav-shell">
+      <a class="navbar-brand fw-bold text-white d-inline-flex align-items-center gap-2" href="index.html">
+        <img src="img/logo.png" alt="Logo EUREKACLEAN">
+        <span>EUREKACLEAN</span>
+      </a>
+
+      <button class="navbar-toggler nav-menu-pill" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+        <span class="nav-menu-icon" aria-hidden="true">&#9776;</span>
+        <span>Menu</span>
+      </button>
+
+      <form class="nav-search" action="tienda.html" method="get" role="search">
+        <input name="q" type="search" placeholder="Busca productos, marcas y mas..." aria-label="Buscar productos">
+        <button type="submit" aria-label="Buscar">&#128269;</button>
+      </form>
+
+      <div class="nav-action-row">
+        <div class="nav-auth-action" id="navAuthSlot">
+          <a class="nav-icon-link nav-account-link" href="login.html" aria-label="Iniciar sesion">&#128100;</a>
+        </div>
+        <a class="nav-icon-link nav-cart-link" href="proforma.html" aria-label="Ver proforma">&#128722;<span class="nav-cart-count" hidden>0</span></a>
+      </div>
+
+      <div class="collapse navbar-collapse nav-menu-panel" id="menu">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="acerca.html">Acerca</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="tienda.html">Catalogo</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link nav-editor-link" href="editor.html">Editor</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="auth-section">
+    <div class="container d-flex justify-content-center">
+      <div class="auth-card">
+        <h1 class="h3 auth-title">Iniciar sesiÃ³n</h1>
+        <p class="auth-subtitle">Accede o regÃ­strate para continuar.</p>
+        <div class="auth-switch">
+          <button type="button" id="showLoginBtn" class="btn active">Iniciar sesiÃ³n</button>
+          <button type="button" id="showRegisterBtn" class="btn">Registrarme</button>
+        </div>
+
+        <div class="alert d-none" id="statusAlert" role="alert"></div>
+
+        <div id="googleQuickLogin" class="google-quick-login d-none">
+          <div id="googleSignInButton" class="google-signin-button"></div>
+          <button type="button" id="googleSetupButton" class="google-setup-button d-none">
+            <span class="google-setup-g" aria-hidden="true">G</span>
+            <span>Continuar con Google</span>
+          </button>
+          <div class="auth-divider"><span>o usa tu correo</span></div>
+        </div>
+
+        <div id="designPreviewPanel" class="d-none mt-3">
+          <div class="border rounded-4 p-3" style="border-color: rgba(255,255,255,.12) !important; background: rgba(255,255,255,.04);">
+            <p class="small fw-semibold mb-2">Vista rÃ¡pida para diseÃ±o</p>
+            <div class="d-grid gap-2">
+              <button type="button" id="previewGuestBtn" class="btn btn-outline-light btn-sm">Vista sin loguearse</button>
+              <button type="button" id="previewCustomerBtn" class="btn btn-success btn-sm">Vista Cliente (Logueada)</button>
+              <button type="button" id="previewAdminBtn" class="btn btn-dark btn-sm">Vista Administrador</button>
+            </div>
+          </div>
+        </div>
+
+        <form id="loginForm" novalidate>
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label fw-semibold">Correo</label>
+            <input id="loginEmail" name="email" type="email" class="form-control" placeholder="cliente@correo.com" autocomplete="email" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label fw-semibold">ContraseÃ±a</label>
+            <input id="loginPassword" name="password" type="password" class="form-control" placeholder="MÃ­nimo 6 caracteres" autocomplete="current-password" minlength="6" required>
+          </div>
+
+          <button type="submit" class="btn btn-brand w-100 rounded-pill py-2">Entrar</button>
+
+          <p class="small text-muted mt-3 mb-0">
+            Â¿No tienes cuenta
+            <button type="button" id="goRegisterLink" class="text-action">RegÃ­strate aquÃ­</button>
+          </p>
+        </form>
+
+        <form id="registerForm" class="d-none" novalidate>
+          <div class="mb-3">
+            <label for="registerName" class="form-label fw-semibold">Nombre completo</label>
+            <input id="registerName" name="name" type="text" class="form-control" placeholder="Tu nombre" autocomplete="name" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="registerEmail" class="form-label fw-semibold">Correo</label>
+            <input id="registerEmail" name="email" type="email" class="form-control" placeholder="nombre@correo.com" autocomplete="email" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="registerPassword" class="form-label fw-semibold">ContraseÃ±a</label>
+            <input id="registerPassword" name="password" type="password" class="form-control" placeholder="MÃ­nimo 10 caracteres, mezcla segura" autocomplete="new-password" minlength="10" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="registerConfirm" class="form-label fw-semibold">Confirmar contraseÃ±a</label>
+            <input id="registerConfirm" name="confirm" type="password" class="form-control" placeholder="Repite tu contraseÃ±a" autocomplete="new-password" minlength="10" required>
+          </div>
+
+          <button type="submit" class="btn btn-brand w-100 rounded-pill py-2">Crear cuenta</button>
+
+          <p class="small text-muted mt-3 mb-0">
+            Â¿Ya tienes cuenta
+            <button type="button" id="goLoginLink" class="text-action">Inicia sesiÃ³n</button>
+          </p>
+        </form>
+
+        <div class="mt-3 d-flex gap-2" id="sessionActions">
+          <button type="button" class="btn btn-sm d-none logout-icon-btn" id="logoutBtn" aria-label="Cerrar sesion" title="Cerrar sesion">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M10 5H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h4" />
+              <path d="M13 8l5 4-5 4" />
+              <path d="M18 12H9" />
+            </svg>
+          </button>
+          <a href="index.html" class="btn btn-outline-dark btn-sm">Volver al inicio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer text-center py-3">
+    <div class="container">
+      <img src="img/logo.png" alt="Logo EUREKACLEAN" style="height:42px;width:auto;" class="mb-2">
+      <br>
+      <small>&copy; 2026 EUREKACLEAN - Todos los derechos reservados.</small>
+    </div>
+  </footer>
+  <script src="js/catalog-store.js?v=20260604scan2"></script>
+  <script src="js/auth-ui.js?v=20260605noflicker1"></script>
+  <script>
+    const authStore = window.EUREKA_AUTH || null;
+    const previewStore = window.EUREKA_PREVIEW || null;
+    const isDesignPreview = Boolean(window.EUREKA_CONFIG && window.EUREKA_CONFIG.designPreview);
+    const API_BASE_RAW = String(window.EUREKA_API_BASE || "").trim();
+    const API_BASE_EXPLICIT = normalizeApiBase(API_BASE_RAW);
+    const API_BASE_CANDIDATES = buildApiCandidates();
+    let activeApiBase = API_BASE_CANDIDATES[0] || "";
+
+    const showLoginBtn = document.getElementById("showLoginBtn");
+    const showRegisterBtn = document.getElementById("showRegisterBtn");
+    const goRegisterLink = document.getElementById("goRegisterLink");
+    const goLoginLink = document.getElementById("goLoginLink");
+    const authSwitch = document.querySelector(".auth-switch");
+
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    const loginSubmitBtn = loginForm.querySelector('button[type="submit"]');
+    const registerSubmitBtn = registerForm.querySelector('button[type="submit"]');
+
+    const loginEmail = document.getElementById("loginEmail");
+    const loginPassword = document.getElementById("loginPassword");
+
+    const registerName = document.getElementById("registerName");
+    const registerEmail = document.getElementById("registerEmail");
+    const registerPassword = document.getElementById("registerPassword");
+    const registerConfirm = document.getElementById("registerConfirm");
+
+    const statusAlert = document.getElementById("statusAlert");
+    const googleQuickLogin = document.getElementById("googleQuickLogin");
+    const googleSignInButton = document.getElementById("googleSignInButton");
+    const googleSetupButton = document.getElementById("googleSetupButton");
+    const designPreviewPanel = document.getElementById("designPreviewPanel");
+    const previewGuestBtn = document.getElementById("previewGuestBtn");
+    const previewCustomerBtn = document.getElementById("previewCustomerBtn");
+    const previewAdminBtn = document.getElementById("previewAdminBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const localDemoCredentialsNote = document.getElementById("localDemoCredentialsNote");
+    let activeSubmitMode = "";
+    let googleLoginReady = false;
+
+    function showAlert(type, message) {
+      statusAlert.className = `alert alert-${type}`;
+      statusAlert.textContent = message;
+      statusAlert.classList.remove("d-none");
+    }
+
+    function hideAlert() {
+      statusAlert.classList.add("d-none");
+      statusAlert.textContent = "";
+    }
+
+    function setFormBusy(form, submitBtn, isBusy, busyText, idleText) {
+      if (form) {
+        form.setAttribute("aria-busy", isBusy ? "true" : "false");
+      }
+      if (submitBtn) {
+        submitBtn.disabled = isBusy;
+        submitBtn.textContent = isBusy ? busyText : idleText;
+      }
+    }
+
+    function syncBusyState() {
+      const isLoginBusy = activeSubmitMode === "login";
+      const isRegisterBusy = activeSubmitMode === "register";
+
+      setFormBusy(loginForm, loginSubmitBtn, isLoginBusy, "Entrando...", "Entrar");
+      setFormBusy(registerForm, registerSubmitBtn, isRegisterBusy, "Creando cuenta...", "Crear cuenta");
+
+      const isBusy = Boolean(activeSubmitMode);
+      showLoginBtn.disabled = isBusy;
+      showRegisterBtn.disabled = isBusy;
+      goRegisterLink.disabled = isBusy;
+      goLoginLink.disabled = isBusy;
+    }
+
+    function startSubmit(mode) {
+      if (activeSubmitMode) return false;
+      activeSubmitMode = mode;
+      syncBusyState();
+      return true;
+    }
+
+    function finishSubmit() {
+      activeSubmitMode = "";
+      syncBusyState();
+    }
+
+    function focusAndSelect(input) {
+      if (!input || typeof input.focus !== "function") return;
+      input.focus();
+      if (typeof input.select === "function" && input.type !== "email") {
+        input.select();
+      }
+    }
+
+    function validateEmailField(input, emptyMessage, invalidMessage) {
+      const value = String(input.value || "").trim();
+      if (!value) {
+        showAlert("warning", emptyMessage);
+        focusAndSelect(input);
+        return false;
+      }
+      if (typeof input.checkValidity === "function" && !input.checkValidity()) {
+        showAlert("warning", invalidMessage);
+        focusAndSelect(input);
+        return false;
+      }
+      return true;
+    }
+
+    function validatePasswordField(input, emptyMessage, shortMessage) {
+      const value = String(input.value || "");
+      if (!value) {
+        showAlert("warning", emptyMessage);
+        focusAndSelect(input);
+        return false;
+      }
+      if (value.length < 6) {
+        showAlert("warning", shortMessage);
+        focusAndSelect(input);
+        return false;
+      }
+      return true;
+    }
+
+    function validateRegisterPasswordField(input) {
+      const value = String(input.value || "");
+      if (!value) {
+        showAlert("warning", "Completa una contrasena.");
+        focusAndSelect(input);
+        return false;
+      }
+      if (value.length < 10) {
+        showAlert("warning", "La contrasena debe tener al menos 10 caracteres.");
+        focusAndSelect(input);
+        return false;
+      }
+      const groups = [
+        /[a-z]/.test(value),
+        /[A-Z]/.test(value),
+        /\d/.test(value),
+        /[^\w\s]/.test(value)
+      ].filter(Boolean).length;
+      if (groups < 3) {
+        showAlert("warning", "Usa al menos tres de estos grupos: minusculas, mayusculas, numeros y simbolos.");
+        focusAndSelect(input);
+        return false;
+      }
+      return true;
+    }
+
+    function syncDemoCredentialsVisibility() {
+      if (!localDemoCredentialsNote) return;
+      const hostname = String(window.location.hostname || "").trim().toLowerCase();
+      const protocol = String(window.location.protocol || "").trim().toLowerCase();
+      const isLocalHost = hostname === "localhost" || hostname === "127.0.0.1";
+      const shouldShow = protocol === "file:" || isLocalHost;
+      localDemoCredentialsNote.classList.toggle("d-none", !shouldShow);
+    }
+
+    function normalizeApiBase(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "";
+      return raw.replace(/\/+$/, "");
+    }
+
+    function buildApiCandidates() {
+      if (API_BASE_EXPLICIT) return [API_BASE_EXPLICIT];
+
+      const candidates = [];
+      const protocol = String(window.location.protocol || "").toLowerCase();
+      const hostname = String(window.location.hostname || "").toLowerCase();
+      const origin = normalizeApiBase(window.location.origin || "");
+      const isFileProtocol = protocol === "file:";
+      const isLocalHost = hostname === "localhost" || hostname === "127.0.0.1";
+
+      if (!isFileProtocol && origin && origin !== "null") {
+        candidates.push(origin);
+      }
+      if (isFileProtocol || isLocalHost) {
+        candidates.push("http://127.0.0.1:8000");
+      }
+
+      return Array.from(new Set(candidates));
+    }
+
+    function buildApiUrl(base, path) {
+      const cleanPath = String(path || "").startsWith("/") ? String(path || "") : `/${String(path || "")}`;
+      return `${String(base || "").replace(/\/+$/, "")}${cleanPath}`;
+    }
+
+    function apiErrorMessage(status, payload) {
+      if (payload && payload.error) return payload.error;
+      if (status === 401) return "Credenciales invÃ¡lidas.";
+      if (status === 405) return "Error 405: el servidor actual no acepta POST para /api. Configura tu backend/API.";
+      if (status === 404) return "Error 404: ruta API no encontrada. Verifica la URL del backend.";
+      return `Error ${status}: no se pudo completar la solicitud.`;
+    }
+
+    async function requestJson(method, path, body, extraHeaders = {}) {
+      const headers = { ...extraHeaders };
+      if (body !== null && body !== undefined) {
+        headers["Content-Type"] = "application/json";
+      }
+
+      let lastError = { ok: false, error: "No se pudo conectar con el backend.", status: 0 };
+
+      for (let i = 0; i < API_BASE_CANDIDATES.length; i += 1) {
+        const base = API_BASE_CANDIDATES[i];
+        const hasNext = i < API_BASE_CANDIDATES.length - 1;
+        const url = buildApiUrl(base, path);
+
+        const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+        const timer = controller ? setTimeout(() => controller.abort(), 9000) : null;
+
+        try {
+          const response = await fetch(url, {
+            method,
+            headers,
+            signal: controller ? controller.signal : undefined,
+            body: body === null || body === undefined ? undefined : JSON.stringify(body)
+          });
+          if (timer) clearTimeout(timer);
+
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          if (response.ok && payload && payload.ok !== false) {
+            activeApiBase = base;
+            return { ok: true, payload, status: response.status };
+          }
+
+          const shouldTryFallback =
+            !API_BASE_EXPLICIT &&
+            hasNext &&
+            (response.status === 404 || response.status === 405 || response.status === 0);
+
+          if (shouldTryFallback) {
+            lastError = { ok: false, error: apiErrorMessage(response.status, payload), status: response.status };
+            continue;
+          }
+
+          return {
+            ok: false,
+            error: apiErrorMessage(response.status, payload),
+            status: response.status
+          };
+        } catch (error) {
+          if (timer) clearTimeout(timer);
+          if (hasNext) continue;
+          const aborted = String(error && error.name ? error.name : "").toLowerCase() === "aborterror";
+          lastError = {
+            ok: false,
+            error: aborted ? "El backend esta demorando demasiado en responder. Verifica que este encendido." : "No se pudo conectar con el backend.",
+            status: 0
+          };
+        }
+      }
+
+      return lastError;
+    }
+
+    async function postJson(path, body) {
+      const result = await requestJson("POST", path, body || {});
+      if (!result.ok && result.status === 405 && !API_BASE_EXPLICIT) {
+        return {
+          ok: false,
+          error: "Error 405: API no disponible en este host. Inicia backend en http://127.0.0.1:8000 o define window.EUREKA_API_BASE."
+        };
+      }
+      return result;
+    }
+
+    async function getMe(token) {
+      if (!token) return { ok: false };
+      const result = await requestJson("GET", "/api/auth/me", null, { Authorization: `Bearer ${token}` });
+      if (!result.ok || !result.payload || !result.payload.user) return { ok: false };
+      return { ok: true, user: result.payload.user };
+    }
+
+    function resolveRole(user) {
+      const role = String(user && user.role ? user.role : "").trim().toLowerCase();
+      return role || "user";
+    }
+
+    function saveSession(user, token) {
+      if (!authStore || typeof authStore.setSession !== "function") return null;
+      return authStore.setSession({
+        name: user && user.name ? user.name : "",
+        email: String(user && user.email ? user.email : "").toLowerCase(),
+        role: resolveRole(user),
+        token: String(token || ""),
+        loggedAt: new Date().toISOString()
+      }, { reason: "login" });
+    }
+
+    function loadGoogleIdentityScript() {
+      if (window.google && window.google.accounts && window.google.accounts.id) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const existing = document.getElementById("googleIdentityScript");
+        if (existing) {
+          existing.addEventListener("load", resolve, { once: true });
+          existing.addEventListener("error", reject, { once: true });
+          return;
+        }
+        const script = document.createElement("script");
+        script.id = "googleIdentityScript";
+        script.src = "https://accounts.google.com/gsi/client";
+        script.async = true;
+        script.defer = true;
+        script.addEventListener("load", resolve, { once: true });
+        script.addEventListener("error", reject, { once: true });
+        document.head.appendChild(script);
+      });
+    }
+
+    async function handleGoogleCredential(response) {
+      const credential = String(response && response.credential ? response.credential : "").trim();
+      if (!credential || !startSubmit("login")) return;
+      showAlert("secondary", "Validando cuenta de Google...");
+      try {
+        const result = await postJson("/api/auth/google", { credential });
+        if (!result.ok || !result.payload || !result.payload.user || !result.payload.token) {
+          showAlert("danger", result.error || "No se pudo iniciar sesion con Google.");
+          return;
+        }
+        saveSession(result.payload.user, result.payload.token);
+        showAlert("success", "Inicio con Google correcto. Redirigiendo...");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 700);
+      } finally {
+        finishSubmit();
+      }
+    }
+
+    async function initGoogleQuickLogin() {
+      if (!googleQuickLogin || !googleSignInButton || isDesignPreview) return;
+      const providers = await requestJson("GET", "/api/auth/providers", null);
+      const googleProvider = providers.ok && providers.payload ? providers.payload.google : null;
+      if (!googleProvider || !googleProvider.enabled || !googleProvider.clientId) {
+        googleLoginReady = true;
+        if (googleSetupButton) googleSetupButton.classList.remove("d-none");
+        googleQuickLogin.classList.toggle("d-none", loginForm.classList.contains("d-none"));
+        return;
+      }
+
+      try {
+        await loadGoogleIdentityScript();
+        if (!window.google || !window.google.accounts || !window.google.accounts.id) return;
+        if (googleSetupButton) googleSetupButton.classList.add("d-none");
+        window.google.accounts.id.initialize({
+          client_id: googleProvider.clientId,
+          callback: handleGoogleCredential,
+          auto_select: false,
+          cancel_on_tap_outside: true
+        });
+        window.google.accounts.id.renderButton(googleSignInButton, {
+          type: "standard",
+          theme: document.body.classList.contains("theme-dark") ? "filled_black" : "outline",
+          size: "large",
+          shape: "pill",
+          text: "continue_with",
+          locale: "es",
+          width: Math.min(420, Math.max(240, googleSignInButton.clientWidth || 360))
+        });
+        googleLoginReady = true;
+        googleQuickLogin.classList.toggle("d-none", loginForm.classList.contains("d-none"));
+      } catch (error) {
+        googleQuickLogin.classList.add("d-none");
+      }
+    }
+
+    function getSession() {
+      const session = authStore && typeof authStore.getSession === "function"
+        ? authStore.getSession()
+        : null;
+      if (session) return session;
+      if (previewStore && typeof previewStore.getSession === "function") {
+        return previewStore.getSession();
+      }
+      return null;
+    }
+
+    function renderPreviewOptions() {
+      if (!designPreviewPanel) return;
+      designPreviewPanel.classList.toggle("d-none", !isDesignPreview);
+      if (!isDesignPreview) return;
+
+      const activeMode = previewStore && typeof previewStore.getMode === "function"
+        ? previewStore.getMode()
+        : "guest";
+
+      [previewGuestBtn, previewCustomerBtn, previewAdminBtn].forEach((button) => {
+        if (!button) return;
+        button.classList.remove("active");
+        button.setAttribute("aria-pressed", "false");
+      });
+
+      const activeButton = activeMode === "admin"
+        ? previewAdminBtn
+        : (activeMode === "customer" ? previewCustomerBtn : previewGuestBtn);
+
+      if (activeButton) {
+        activeButton.classList.add("active");
+        activeButton.setAttribute("aria-pressed", "true");
+      }
+    }
+
+    function applyPreviewMode(mode, targetHref) {
+      if (!isDesignPreview || !previewStore || typeof previewStore.setMode !== "function") return;
+      if (authStore && typeof authStore.clearSession === "function") {
+        authStore.clearSession("preview-switch");
+      }
+      previewStore.setMode(mode);
+      renderPreviewOptions();
+      renderSessionState();
+      window.setTimeout(() => {
+        window.location.href = targetHref;
+      }, 150);
+    }
+
+    function setMode(mode) {
+      if (activeSubmitMode) return;
+      const showLogin = mode === "login";
+
+      loginForm.classList.toggle("d-none", !showLogin);
+      registerForm.classList.toggle("d-none", showLogin);
+      if (googleQuickLogin) googleQuickLogin.classList.toggle("d-none", !showLogin || !googleLoginReady);
+
+      showLoginBtn.classList.toggle("active", showLogin);
+      showRegisterBtn.classList.toggle("active", !showLogin);
+
+      hideAlert();
+
+      if (showLogin) {
+        registerPassword.value = "";
+        registerConfirm.value = "";
+      } else {
+        loginPassword.value = "";
+      }
+    }
+
+    function renderSessionState() {
+      renderPreviewOptions();
+      const session = getSession();
+      const email = session && session.email ? String(session.email).trim().toLowerCase() : "";
+      const token = session && session.token ? String(session.token).trim() : "";
+
+      if (!email || !token) {
+        authSwitch.classList.remove("d-none");
+        logoutBtn.classList.add("d-none");
+        if (isDesignPreview) {
+          showAlert("info", "Vista local de diseno: esta pantalla se muestra completa sin depender del backend.");
+        }
+        return;
+      }
+
+      const role = String(session.role || "").toLowerCase();
+      const roleLabel = role === "admin" ? " (administrador)" : "";
+      const sessionName = String(session.name || "").trim();
+      const fallbackName = String(session.email || "").split("@")[0] || "usuario";
+      const visibleName = sessionName || fallbackName;
+
+      authSwitch.classList.add("d-none");
+      loginForm.classList.add("d-none");
+      registerForm.classList.add("d-none");
+      logoutBtn.classList.remove("d-none");
+      if (isDesignPreview) {
+        showAlert("info", `Sesion local detectada: ${visibleName}${roleLabel}. En vista diseno no se redirecciona automaticamente.`);
+        return;
+      }
+
+      showAlert("info", `Sesion activa : ${visibleName}${roleLabel}. Redirigiendo a Inicio...`);
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 700);
+    }
+
+    function renderGuestNavbar() {
+      const slot = document.getElementById("navAuthSlot");
+      if (!slot) return;
+      const proformaItem = document.getElementById("navProformaItem");
+      if (proformaItem) proformaItem.remove();
+      const editorItem = document.getElementById("navEditorItem");
+      if (editorItem) editorItem.remove();
+      slot.innerHTML = `<a class="nav-icon-link nav-account-link" href="login.html" aria-label="Iniciar sesion">&#128100;</a>`;
+    }
+
+    async function syncSessionWithBackend() {
+      if (isDesignPreview) return;
+      const session = getSession();
+      const token = session && session.token ? String(session.token).trim() : "";
+      if (!token) {
+        if (session && session.email && authStore && typeof authStore.clearSession === "function") {
+          authStore.clearSession("expired");
+        }
+        return;
+      }
+
+      const me = await getMe(token);
+      if (!me.ok) {
+        if (authStore && typeof authStore.clearSession === "function") {
+          authStore.clearSession("expired");
+        }
+      } else {
+        saveSession(me.user, token);
+      }
+    }
+
+    showLoginBtn.addEventListener("click", () => setMode("login"));
+    showRegisterBtn.addEventListener("click", () => setMode("register"));
+    goRegisterLink.addEventListener("click", () => setMode("register"));
+    goLoginLink.addEventListener("click", () => setMode("login"));
+    if (googleSetupButton) {
+      googleSetupButton.addEventListener("click", () => {
+        showAlert("info", "Para activar Google, configura APP_GOOGLE_CLIENT_ID en el servidor y autoriza este dominio en Google Cloud.");
+      });
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!startSubmit("login")) return;
+      hideAlert();
+
+      const email = loginEmail.value.trim().toLowerCase();
+      const password = String(loginPassword.value || "");
+
+      try {
+        if (isDesignPreview) {
+          showAlert("info", "Vista local de diseno: el inicio de sesion real necesita backend.");
+          return;
+        }
+        if (!validateEmailField(loginEmail, "Completa tu correo.", "Escribe un correo valido.")) return;
+        if (!validatePasswordField(loginPassword, "Completa tu contrasena.", "La contrasena debe tener al menos 6 caracteres.")) return;
+
+        showAlert("secondary", "Validando credenciales...");
+        const result = await postJson("/api/auth/login", { email, password });
+        if (!result.ok) {
+          showAlert("danger", result.error || "Credenciales invalidas.");
+          focusAndSelect(loginPassword);
+          return;
+        }
+
+        const payload = result.payload || {};
+        if (!payload.user || !payload.token) {
+          showAlert("danger", "Respuesta invalida del servidor.");
+          return;
+        }
+
+        saveSession(payload.user, payload.token);
+        showAlert("success", "Inicio de sesion correcto. Redirigiendo...");
+
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 900);
+      } finally {
+        finishSubmit();
+      }
+    });
+
+    registerForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!startSubmit("register")) return;
+      hideAlert();
+
+      const name = registerName.value.trim();
+      const email = registerEmail.value.trim().toLowerCase();
+      const password = String(registerPassword.value || "");
+      const confirm = String(registerConfirm.value || "");
+
+      try {
+        if (isDesignPreview) {
+          showAlert("info", "Vista local de diseno: el registro real necesita backend.");
+          return;
+        }
+        if (!name) {
+          showAlert("warning", "Completa tu nombre para registrarte.");
+          focusAndSelect(registerName);
+          return;
+        }
+        if (!validateEmailField(registerEmail, "Completa tu correo para registrarte.", "Escribe un correo valido.")) return;
+        if (!validateRegisterPasswordField(registerPassword)) return;
+        if (!confirm) {
+          showAlert("warning", "Confirma tu contrasena.");
+          focusAndSelect(registerConfirm);
+          return;
+        }
+        if (password !== confirm) {
+          showAlert("warning", "Las contrasenas no coinciden.");
+          registerConfirm.value = "";
+          focusAndSelect(registerConfirm);
+          return;
+        }
+
+        showAlert("secondary", "Creando cuenta...");
+        const registerResult = await postJson("/api/auth/register", { name, email, password });
+        if (!registerResult.ok) {
+          showAlert("danger", registerResult.error || "No se pudo registrar la cuenta.");
+          if (String(registerResult.error || "").toLowerCase().includes("correo")) {
+            focusAndSelect(registerEmail);
+          }
+          return;
+        }
+
+        const loginResult = await postJson("/api/auth/login", { email, password });
+        if (!loginResult.ok || !loginResult.payload || !loginResult.payload.user || !loginResult.payload.token) {
+          finishSubmit();
+          setMode("login");
+          loginEmail.value = email;
+          showAlert("success", "Cuenta creada. Inicia sesion para continuar.");
+          focusAndSelect(loginPassword);
+          return;
+        }
+
+        saveSession(loginResult.payload.user, loginResult.payload.token);
+        showAlert("success", "Cuenta creada correctamente. Redirigiendo...");
+
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 900);
+      } finally {
+        finishSubmit();
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      if (isDesignPreview && previewStore && typeof previewStore.setMode === "function") {
+        previewStore.setMode("guest");
+      }
+      if (authStore && typeof authStore.clearSession === "function") {
+        authStore.clearSession("logout");
+      }
+      loginForm.reset();
+      registerForm.reset();
+      authSwitch.classList.remove("d-none");
+      setMode("login");
+      showAlert("secondary", "Sesion cerrada.");
+      logoutBtn.classList.add("d-none");
+      renderGuestNavbar();
+    });
+
+    window.addEventListener("auth:logout", () => {
+      if (isDesignPreview && previewStore && typeof previewStore.setMode === "function") {
+        previewStore.setMode("guest");
+      }
+      loginForm.reset();
+      registerForm.reset();
+      authSwitch.classList.remove("d-none");
+      setMode("login");
+      showAlert("secondary", "Sesion cerrada.");
+      logoutBtn.classList.add("d-none");
+      renderGuestNavbar();
+    });
+
+    if (previewGuestBtn) {
+      previewGuestBtn.addEventListener("click", () => applyPreviewMode("guest", "index.html"));
+    }
+
+    if (previewCustomerBtn) {
+      previewCustomerBtn.addEventListener("click", () => applyPreviewMode("customer", "tienda.html"));
+    }
+
+    if (previewAdminBtn) {
+      previewAdminBtn.addEventListener("click", () => applyPreviewMode("admin", "editor.html"));
+    }
+
+    window.addEventListener("preview:mode-changed", () => {
+      renderPreviewOptions();
+    });
+
+    (async () => {
+      syncDemoCredentialsVisibility();
+      syncBusyState();
+      setMode("login");
+      await syncSessionWithBackend();
+      renderSessionState();
+      await initGoogleQuickLogin();
+    })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,343 @@
+:root {
+  --brand: #47c924;
+  --brand-dark: #2f8d18;
+  --ink: #1a2a21;
+  --muted: #607068;
+  --soft: #f3f8f4;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  padding-top: 56px;
+  background: #eef4ef;
+  color: var(--ink);
+}
+
+.custom-navbar {
+  background: linear-gradient(118deg, #47c924 0%, #21b85f 52%, #1b8f85 100%);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(14, 72, 47, 0.18);
+}
+
+.navbar-brand {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  font-weight: 600;
+  color: white !important;
+}
+
+.nav-link.active {
+  border-bottom: 2px solid #fff;
+}
+
+.nav-link:hover {
+  opacity: 0.8;
+}
+
+.navbar-toggler {
+  transition: background-color 0.3s ease;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.about-hero {
+  background:
+    linear-gradient(120deg, rgba(10, 33, 17, 0.8), rgba(10, 33, 17, 0.58)),
+    url('../img/home/hero-about-cleaning.jpg') center/cover no-repeat;
+  color: #fff;
+  padding: 5.5rem 0 4.8rem;
+}
+
+.about-hero h1 {
+  font-weight: 800;
+}
+
+.about-hero p {
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.pill-badge {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.section-subtitle {
+  color: var(--muted);
+  max-width: 760px;
+  margin: 0 auto 2rem;
+}
+
+.info-card {
+  border: 1px solid #e8eee9;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.info-card h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.info-card p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.stat-box {
+  background: var(--soft);
+  border: 1px solid #dfebdf;
+  border-radius: 14px;
+  text-align: center;
+  padding: 1rem;
+  height: 100%;
+}
+
+.stat-box strong {
+  display: block;
+  font-size: 1.7rem;
+  color: var(--brand-dark);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.stat-box span {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* "Cómo trabajamos" – equal-height columns */
+.timeline-col {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.timeline-item {
+  border-left: 3px solid var(--brand);
+  padding-left: 1rem;
+  border-radius: 12px;
+  margin-bottom: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.timeline-item h4 {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 0.2rem;
+}
+
+.timeline-item p {
+  color: var(--muted);
+  margin-bottom: 0;
+  font-size: 0.95rem;
+}
+
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  border-color: #dceadf;
+}
+
+.feature-card::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(71, 201, 36, 0.12) 0%, rgba(71, 201, 36, 0) 70%);
+  pointer-events: none;
+}
+
+.feature-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #0f613e;
+  background: #ddf8ea;
+  border: 1px solid #afe8cd;
+  margin-bottom: 0.65rem;
+}
+
+.feature-list,
+.commitment-list {
+  margin: 0.85rem 0 0;
+  padding-left: 1.1rem;
+  color: #4f665b;
+}
+
+.feature-list li,
+.commitment-list li {
+  margin-bottom: 0.4rem;
+}
+
+.side-note-card h3 {
+  margin-bottom: 0.65rem;
+}
+
+.coverage-grid {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.coverage-chip {
+  border: 1px solid #dce9e1;
+  background: #f6fbf8;
+  border-radius: 12px;
+  padding: 0.75rem 0.82rem;
+}
+
+.coverage-chip strong {
+  display: block;
+  margin-bottom: 0.18rem;
+  font-size: 0.95rem;
+  color: #194533;
+}
+
+.coverage-chip span {
+  font-size: 0.9rem;
+  color: #577065;
+}
+
+.sector-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.sector-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid #cde5d7;
+  background: #f2faf6;
+  color: #1a573e;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.3rem 0.7rem;
+}
+
+.about-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(124deg, #143529 0%, #1a5a3f 54%, #207654 100%);
+  border: 1px solid rgba(199, 236, 216, 0.28);
+  border-radius: 18px;
+  padding: 1.35rem;
+  color: #ecfff5;
+  box-shadow: 0 14px 30px rgba(12, 45, 32, 0.25);
+}
+
+.about-cta h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin: 0.4rem 0 0.5rem;
+}
+
+.about-cta p {
+  margin: 0;
+  max-width: 680px;
+  color: rgba(236, 255, 245, 0.9);
+}
+
+.about-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.pill-badge-solid {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+html.theme-dark:not(.auth-is-admin) body .section-subtitle,
+html.theme-dark:not(.auth-is-admin) body .info-card p,
+html.theme-dark:not(.auth-is-admin) body .timeline-item p,
+html.theme-dark:not(.auth-is-admin) body .feature-list,
+html.theme-dark:not(.auth-is-admin) body .commitment-list,
+html.theme-dark:not(.auth-is-admin) body .stat-box span {
+  color: #c5d3e2;
+}
+
+html.theme-dark:not(.auth-is-admin) body .feature-card {
+  border-color: rgba(210, 224, 238, 0.16);
+}
+
+html.theme-dark:not(.auth-is-admin) body .feature-index,
+html.theme-dark:not(.auth-is-admin) body .sector-pill {
+  background: #152a3d;
+  color: #d9e9f8;
+  border-color: rgba(214, 230, 248, 0.26);
+}
+
+html.theme-dark:not(.auth-is-admin) body .coverage-chip {
+  background: #132334;
+  border-color: rgba(210, 224, 238, 0.17);
+}
+
+html.theme-dark:not(.auth-is-admin) body .coverage-chip strong {
+  color: #e8f2fc;
+}
+
+html.theme-dark:not(.auth-is-admin) body .coverage-chip span {
+  color: #c5d3e2;
+}
+
+@media (max-width: 991.98px) {
+  .about-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .about-cta-actions {
+    justify-content: flex-start;
+  }
+}
+
+.footer {
+  background: #101411;
+  color: white;
+}
+
+.footer a {
+  color: #c8d2ca;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: var(--brand);
+}

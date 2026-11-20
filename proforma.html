@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="page-data-pending">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proforma | EUREKACLEAN</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style-proforma.css?v=20260605print1">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="stylesheet" href="css/style-auth-admin.css?v=20260605noflicker1">
+  <link rel="stylesheet" href="css/style-mobile.css?v=20260605noflicker1">
+  <script src="js/runtime-config.js?v=20260604scan2"></script>
+  <script src="js/app-config.js?v=20260604scan2"></script>
+  <script src="js/auth-admin-flag.js?v=20260605noflicker1"></script>
+</head>
+<body class="page-proforma">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+    <div class="container nav-shell">
+      <a class="navbar-brand fw-bold text-white d-inline-flex align-items-center gap-2" href="index.html">
+        <img src="img/logo.png" alt="Logo EUREKACLEAN">
+        <span>EUREKACLEAN</span>
+      </a>
+
+      <button class="navbar-toggler nav-menu-pill" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+        <span class="nav-menu-icon" aria-hidden="true">&#9776;</span>
+        <span>Menu</span>
+      </button>
+
+      <form class="nav-search" action="tienda.html" method="get" role="search">
+        <input name="q" type="search" placeholder="Busca productos, marcas y mas..." aria-label="Buscar productos">
+        <button type="submit" aria-label="Buscar">&#128269;</button>
+      </form>
+
+      <div class="nav-action-row">
+        <div class="nav-auth-action" id="navAuthSlot">
+          <a class="nav-icon-link nav-account-link" href="login.html" aria-label="Iniciar sesion">&#128100;</a>
+        </div>
+        <a class="nav-icon-link nav-cart-link" href="proforma.html" aria-label="Ver proforma">&#128722;<span class="nav-cart-count" hidden>0</span></a>
+      </div>
+
+      <div class="collapse navbar-collapse nav-menu-panel" id="menu">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="acerca.html">Acerca</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="tienda.html">Catalogo</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link nav-editor-link" href="editor.html">Editor</a></li>
+          <li class="nav-item"><a class="nav-link active" href="proforma.html">Proforma</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="proforma-section">
+    <div class="container">
+      <div class="proforma-shell">
+        <div class="proforma-head mb-3">
+          <h1>Creador de Proforma</h1>
+          <p>Aqui podras armar tu proforma, verla en formato documento y descargarla en PDF.</p>
+        </div>
+
+        <div id="accessAlert" class="alert d-none" role="alert"></div>
+
+        <div id="customerPanel" class="d-none">
+          <div class="row g-4">
+            <div class="col-lg-8">
+              <div class="proforma-card">
+                <h2 class="h5 fw-bold mb-3">Productos en proforma</h2>
+                <div id="proformaItems" class="proforma-items"></div>
+                <p id="proformaEmpty" class="text-muted small mb-0">No hay productos agregados. Ve al catalogo y agrega items.</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="proforma-card">
+                <h2 class="h5 fw-bold mb-3">Datos del cliente</h2>
+
+                <label for="rucInput" class="form-label fw-semibold">RUC (11 digitos, inicia en 10 o 20)</label>
+                <div class="input-group mb-2">
+                  <input id="rucInput" type="text" class="form-control" maxlength="11" placeholder="Ejemplo : 20123456789" inputmode="numeric">
+                  <button id="lookupRucBtn" type="button" class="btn btn-outline-primary btn-sm">Consultar SUNAT</button>
+                </div>
+                <label for="customerNameInput" class="form-label fw-semibold">Nombre / Razon social</label>
+                <input id="customerNameInput" type="text" class="form-control mb-2" maxlength="180" placeholder="Se completa con SUNAT" readonly>
+                <div class="row g-2">
+                  <div class="col-md-6">
+                    <label for="customerDepartmentInput" class="form-label fw-semibold">Departamento</label>
+                    <select id="customerDepartmentInput" class="form-select form-select-sm mb-2">
+                      <option value="">Seleccionar</option>
+                      <option value="Lima">Lima</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="customerDistrictInput" class="form-label fw-semibold">Distrito</label>
+                    <select id="customerDistrictInput" class="form-select form-select-sm mb-2">
+                      <option value="">Seleccionar distrito</option>
+                      <option value="Ancon">Ancon</option>
+                      <option value="Ate">Ate</option>
+                      <option value="Barranco">Barranco</option>
+                      <option value="Brena">Brena</option>
+                      <option value="Carabayllo">Carabayllo</option>
+                      <option value="Chaclacayo">Chaclacayo</option>
+                      <option value="Chorrillos">Chorrillos</option>
+                      <option value="Cieneguilla">Cieneguilla</option>
+                      <option value="Comas">Comas</option>
+                      <option value="El Agustino">El Agustino</option>
+                      <option value="Independencia">Independencia</option>
+                      <option value="Jesus Maria">Jesus Maria</option>
+                      <option value="La Molina">La Molina</option>
+                      <option value="La Victoria">La Victoria</option>
+                      <option value="Lima">Lima</option>
+                      <option value="Lince">Lince</option>
+                      <option value="Los Olivos">Los Olivos</option>
+                      <option value="Lurigancho">Lurigancho</option>
+                      <option value="Lurin">Lurin</option>
+                      <option value="Magdalena del Mar">Magdalena del Mar</option>
+                      <option value="Miraflores">Miraflores</option>
+                      <option value="Pachacamac">Pachacamac</option>
+                      <option value="Pucusana">Pucusana</option>
+                      <option value="Pueblo Libre">Pueblo Libre</option>
+                      <option value="Puente Piedra">Puente Piedra</option>
+                      <option value="Punta Hermosa">Punta Hermosa</option>
+                      <option value="Punta Negra">Punta Negra</option>
+                      <option value="Rimac">Rimac</option>
+                      <option value="San Bartolo">San Bartolo</option>
+                      <option value="San Borja">San Borja</option>
+                      <option value="San Isidro">San Isidro</option>
+                      <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
+                      <option value="San Juan de Miraflores">San Juan de Miraflores</option>
+                      <option value="San Luis">San Luis</option>
+                      <option value="San Martin de Porres">San Martin de Porres</option>
+                      <option value="San Miguel">San Miguel</option>
+                      <option value="Santa Anita">Santa Anita</option>
+                      <option value="Santa Maria del Mar">Santa Maria del Mar</option>
+                      <option value="Santa Rosa">Santa Rosa</option>
+                      <option value="Santiago de Surco">Santiago de Surco</option>
+                      <option value="Surquillo">Surquillo</option>
+                      <option value="Villa El Salvador">Villa El Salvador</option>
+                      <option value="Villa Maria del Triunfo">Villa Maria del Triunfo</option>
+                    </select>
+                  </div>
+                </div>
+                <label for="customerAddressInput" class="form-label fw-semibold">Direccion exacta</label>
+                <input id="customerAddressInput" type="text" class="form-control mb-2" maxlength="180" placeholder="Av./Jr./Calle, numero, referencia">
+                <label for="customerPhoneInput" class="form-label fw-semibold">Numero de telefono</label>
+                <input id="customerPhoneInput" type="tel" class="form-control mb-2" maxlength="15" placeholder="Ej. 987654321" inputmode="tel">
+                <button id="saveRucBtn" type="button" class="btn btn-outline-dark btn-sm w-100 mb-3">Guardar datos cliente</button>
+
+                <div class="proforma-summary">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span>Items</span>
+                    <strong id="summaryItems">0</strong>
+                  </div>
+                  <div class="d-flex justify-content-between mb-3">
+                    <span>Total referencial</span>
+                    <strong id="summaryTotal">S/. 0.00</strong>
+                  </div>
+
+                  <div class="d-grid gap-2">
+                    <button id="previewProformaBtn" type="button" class="btn btn-success btn-sm">Generar y enviar</button>
+                    <button id="downloadCurrentBtn" type="button" class="btn btn-outline-dark btn-sm" disabled>Descargar proforma actual</button>
+                    <button id="clearProformaBtn" type="button" class="btn btn-outline-secondary btn-sm">Vaciar proforma</button>
+                    <a href="tienda.html" class="btn btn-dark btn-sm">Volver al catalogo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="proforma-card mt-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h2 class="h5 fw-bold mb-0">Mis proformas creadas</h2>
+              <span id="historyCountBadge" class="history-count-badge">0</span>
+            </div>
+            <p class="text-muted small mb-3">Registro por cliente logeado.</p>
+            <p id="proformaHistoryEmpty" class="text-muted small mb-0">Aun no has creado proformas.</p>
+            <div id="proformaHistoryList" class="history-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal fade proforma-preview-modal" id="proformaPreviewModal" tabindex="-1" aria-labelledby="proformaPreviewTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5 mb-0 fw-bold" id="proformaPreviewTitle">Vista previa de proforma</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div id="proformaPreview" class="proforma-preview d-none"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="modalDownloadBtn" type="button" class="btn btn-dark btn-sm" disabled>Descargar PDF</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer text-white pt-5">
+    <div class="container text-center">
+      <img src="img/logo.png" alt="Logo EUREKACLEAN" style="height:50px;width:auto;" class="mb-2">
+      <h5 class="fw-bold">EUREKACLEAN</h5>
+      <p>Tu aliado en limpieza profesional</p>
+      <div class="mt-3">
+        <a href="acerca.html" class="me-3">Nosotros</a>
+        <a href="contacto.html" class="me-3">Contacto</a>
+        <a href="tienda.html">Catalogo</a>
+      </div>
+      <div class="footer-bottom mt-4">
+        &copy; 2026 EUREKACLEAN - Todos los derechos reservados
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/catalog-store.js?v=20260604scan2"></script>
+  <script src="js/proforma-page.js?v=20260605delivery1"></script>
+  <script src="js/auth-ui.js?v=20260605noflicker1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

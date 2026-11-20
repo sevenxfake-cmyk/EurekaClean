@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="page-data-pending">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categoria | EUREKACLEAN</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style-tienda.css?v=20260605drawerText1">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="stylesheet" href="css/style-auth-admin.css?v=20260605noflicker1">
+  <link rel="stylesheet" href="css/style-mobile.css?v=20260605noflicker1">
+  <script src="js/runtime-config.js?v=20260604scan2"></script>
+  <script src="js/app-config.js?v=20260604scan2"></script>
+  <script src="js/auth-admin-flag.js?v=20260605noflicker1"></script>
+</head>
+<body class="page-tienda">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+    <div class="container nav-shell">
+      <a class="navbar-brand fw-bold text-white d-inline-flex align-items-center gap-2" href="index.html">
+        <img src="img/logo.png" alt="Logo EUREKACLEAN">
+        <span>EUREKACLEAN</span>
+      </a>
+
+      <button class="navbar-toggler nav-menu-pill" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+        <span class="nav-menu-icon" aria-hidden="true">&#9776;</span>
+        <span>Menu</span>
+      </button>
+
+      <form class="nav-search" action="categoria.html" method="get" role="search">
+        <input name="q" type="search" placeholder="Busca productos, marcas y mas..." aria-label="Buscar productos">
+        <button type="submit" aria-label="Buscar">&#128269;</button>
+      </form>
+
+      <div class="nav-action-row">
+        <div class="nav-auth-action" id="navAuthSlot">
+          <a class="nav-icon-link nav-account-link" href="login.html" aria-label="Iniciar sesion">&#128100;</a>
+        </div>
+        <a class="nav-icon-link nav-cart-link" href="proforma.html" aria-label="Ver proforma">&#128722;<span class="nav-cart-count" hidden>0</span></a>
+      </div>
+
+      <div class="collapse navbar-collapse nav-menu-panel" id="menu">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="acerca.html">Acerca</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link active" href="tienda.html">Catalogo</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link nav-editor-link" href="editor.html">Editor</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="store-hero">
+    <div class="container">
+      <div class="store-hero-card">
+        <div>
+          <h1 class="store-hero-title">Catalogo de Limpieza Profesional</h1>
+          <p class="store-hero-text">
+            Explora productos de limpieza para hogar y empresa, con despacho rapido a domicilio.
+          </p>
+          <div id="storeHeroStats" class="store-hero-stats" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 container">
+    <a class="category-selector-all mb-3" href="tienda.html">&larr; Volver a categorias</a>
+    <div class="promo-shell mb-4">
+      <div class="promo-head">
+        <div>
+          <span class="promo-kicker">OFERTAS DE LA SEMANA</span>
+          <h2 class="promo-title mb-1">Productos en promocion</h2>
+          <p class="promo-subtitle mb-0">Al iniciar el catalogo veras primero ofertas destacadas.</p>
+        </div>
+        <span id="promoCountBadge" class="promo-count-badge">0 items</span>
+      </div>
+
+      <div class="promo-carousel-frame">
+        <div
+          id="promoCarousel"
+          class="carousel slide promo-carousel"
+          data-bs-pause="hover"
+        >
+          <div id="promoIndicators" class="carousel-indicators promo-indicators"></div>
+          <div id="promoInner" class="carousel-inner"></div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#promoCarousel" data-bs-slide="prev" aria-label="Promocion anterior">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#promoCarousel" data-bs-slide="next" aria-label="Promocion siguiente">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="catalog-search-global catalog-search-sticky search-secondary-sticky">
+      <div class="catalog-search-wrap">
+        <span class="catalog-search-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <circle cx="11" cy="11" r="6.5"></circle>
+            <path d="M16.2 16.2L21 21"></path>
+          </svg>
+        </span>
+        <input
+          id="catalogSearchInput"
+          type="search"
+          class="form-control"
+          placeholder="Buscar en todo el catalogo..."
+          aria-label="Buscar productos"
+        >
+        <button id="catalogSearchClearBtn" type="button" class="btn btn-outline-secondary btn-sm">Limpiar</button>
+      </div>
+      <div class="catalog-search-meta">
+        <span id="catalogSearchHint" class="catalog-search-hint">Busca por nombre, SKU, categoria o subcategoria.</span>
+        <strong id="catalogSearchStats" class="catalog-search-stats">0 productos visibles</strong>
+      </div>
+    </div>
+
+    <div class="catalog-mobile-toolbar" aria-label="Controles del catalogo en movil">
+      <button
+        id="catalogMobileFilterChipBtn"
+        type="button"
+        class="catalog-mobile-filter-chip"
+        aria-expanded="false"
+        aria-controls="catalogSidebarDrawer"
+        aria-label="Abrir categorias"
+      >
+        <span class="catalog-mobile-filter-icon" aria-hidden="true">&#9776;</span>
+        <span>Categorias</span>
+      </button>
+      <div class="catalog-mobile-toolbar-copy">
+        <span id="catalogMobileActiveLabel" class="catalog-mobile-active-label">Todos los productos</span>
+        <strong id="catalogMobileRangeLabel" class="catalog-mobile-range-label">0 productos</strong>
+      </div>
+    </div>
+
+    <div class="catalog-mobile-toggle" aria-live="polite">
+      <button
+        id="catalogMobileToggleBtn"
+        type="button"
+        class="catalog-mobile-toggle-btn"
+        aria-expanded="false"
+        aria-controls="catalogSidebarDrawer"
+        aria-label="Mostrar categorias"
+      >
+        <span class="catalog-mobile-arrow" aria-hidden="true">&#10095;</span>
+        <span class="catalog-mobile-callout">PRESIONE AQUI PARA VER NUESTRO CATALOGO</span>
+      </button>
+    </div>
+    <div id="catalogMobileBackdrop" class="catalog-mobile-backdrop" aria-hidden="true"></div>
+
+    <div class="catalog-wrap">
+      <div class="row g-4 catalog-layout">
+        <div class="col-lg-9 catalog-products-col">
+          <div class="catalog-header">
+            <div>
+              <h2 id="catalogTitle" class="catalog-title">Todos los productos</h2>
+              <p id="catalogSubtitle" class="catalog-subtitle">0 items</p>
+            </div>
+            <div class="catalog-header-actions">
+              <nav class="catalog-top-pagination-nav" aria-label="Paginacion superior del catalogo">
+                <ul id="catalogPaginationTop" class="pagination catalog-pagination catalog-pagination-top mb-0"></ul>
+              </nav>
+              <div class="catalog-view-switch" role="group" aria-label="Vista de catalogo">
+                <button id="catalogViewGridBtn" type="button" class="btn btn-sm active">Grid</button>
+                <button id="catalogViewListBtn" type="button" class="btn btn-sm">List</button>
+              </div>
+              <a id="proformaLinkBtn" class="btn btn-dark cart-toggle-btn d-none" href="proforma.html">
+                Proforma
+                <span class="badge text-bg-light ms-1" id="proformaCountBadge">0</span>
+              </a>
+            </div>
+          </div>
+
+          <div id="catalogGrid" class="row g-4"></div>
+
+          <nav class="mt-4">
+            <ul id="catalogPagination" class="pagination catalog-pagination justify-content-center mb-0"></ul>
+          </nav>
+        </div>
+
+        <div id="catalogSidebarDrawer" class="col-lg-3 catalog-sidebar-col catalog-sidebar-right">
+          <div class="catalog-sidebar">
+            <div class="catalog-mobile-apphead">
+              <span class="catalog-mobile-grabber" aria-hidden="true"></span>
+              <div class="catalog-mobile-apphead-top">
+                <span class="catalog-mobile-app-kicker">MENU CATALOGO</span>
+                <button id="catalogMobileCloseBtn" type="button" class="catalog-mobile-close-btn" aria-label="Cerrar categorias">
+                  <span class="catalog-mobile-close-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <path d="M6 6l12 12"></path>
+                      <path d="M18 6L6 18"></path>
+                    </svg>
+                  </span>
+                  <span class="catalog-mobile-close-label">Cerrar</span>
+                </button>
+              </div>
+              <div class="catalog-mobile-profile">
+                <span class="catalog-mobile-avatar">E</span>
+                <div>
+                  <strong>EUREKACLEAN</strong>
+                  <p>Categorias y subcategorias</p>
+                </div>
+              </div>
+            </div>
+            <div class="catalog-mobile-drawer-head">
+              <p class="mb-0">Explora nuestro catalogo</p>
+            </div>
+            <button id="catalogAllProductsBtn" type="button" class="btn btn-outline-secondary w-100 catalog-btn" data-category="all-products">
+              Todos los productos
+            </button>
+            <div id="catalogSidebarGroups"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="modal fade product-preview-modal" id="productPreviewModal" tabindex="-1" aria-labelledby="productPreviewName" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body pt-2">
+          <div class="product-preview-layout">
+            <div class="product-preview-media">
+              <img id="productPreviewImage" src="" alt="Producto" loading="lazy">
+            </div>
+            <div class="product-preview-info">
+              <p id="productPreviewCategory" class="product-preview-category mb-2">Catalogo</p>
+              <h3 id="productPreviewName" class="product-preview-name mb-1">Producto</h3>
+              <p id="productPreviewCode" class="product-preview-code mb-3">Codigo</p>
+              <p id="productPreviewDescription" class="product-preview-description mb-3"></p>
+              <p class="product-preview-stock mb-3">Disponible para compra inmediata.</p>
+              <div class="product-preview-price-row mb-3">
+                <strong id="productPreviewPrice" class="product-preview-price">S/. 0.00</strong>
+                <span id="productPreviewOldPrice" class="product-preview-old-price d-none"></span>
+              </div>
+              <div class="add-proforma-actions product-preview-actions">
+                <div class="add-qty-picker" aria-label="Cantidad a agregar">
+                  <button type="button" class="add-qty-btn" data-action="dec-add-qty" aria-label="Disminuir cantidad">-</button>
+                  <span class="add-qty-value" id="productPreviewQtyValue" aria-live="polite">1</span>
+                  <button type="button" class="add-qty-btn" data-action="inc-add-qty" aria-label="Aumentar cantidad">+</button>
+                </div>
+                <button
+                  id="productPreviewAddBtn"
+                  class="btn btn-sm w-100 add-proforma-btn"
+                  data-product=""
+                  data-code=""
+                  data-price="0"
+                  data-original-price="0"
+                  data-discount-pct="0"
+                  data-promo="0"
+                >
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bottomNotice" class="bottom-notice" role="status" aria-live="polite"></div>
+  <button id="mobileProformaBar" class="mobile-proforma-bar d-none" type="button" aria-label="Abrir tu proforma">
+    <span class="mobile-proforma-copy">
+      <strong>Tu proforma</strong>
+      <small id="mobileProformaSummary">0 productos agregados</small>
+    </span>
+    <span id="mobileProformaBarCount" class="mobile-proforma-count">0</span>
+  </button>
+
+  <div id="proformaDrawerBackdrop" class="proforma-drawer-backdrop" aria-hidden="true"></div>
+  <aside id="proformaDrawer" class="proforma-drawer" role="dialog" aria-modal="true" aria-labelledby="proformaDrawerTitle" aria-hidden="true">
+    <div class="proforma-drawer-head">
+      <div>
+        <span class="proforma-drawer-kicker">Tu carrito</span>
+        <h2 id="proformaDrawerTitle">Productos agregados</h2>
+      </div>
+      <button id="proformaDrawerCloseBtn" class="proforma-drawer-close" type="button" aria-label="Cerrar carrito">&times;</button>
+    </div>
+    <div id="proformaDrawerItems" class="proforma-drawer-items"></div>
+    <div class="proforma-drawer-footer">
+      <div class="proforma-drawer-subtotal">
+        <span>Subtotal</span>
+        <strong id="proformaDrawerSubtotal">S/ 0.00</strong>
+      </div>
+      <div class="proforma-drawer-actions">
+        <button id="proformaDrawerKeepShoppingBtn" type="button" class="btn proforma-drawer-secondary">Seguir comprando</button>
+        <a id="proformaDrawerContinueBtn" class="btn proforma-drawer-primary" href="proforma.html">Continuar &rarr;</a>
+      </div>
+    </div>
+  </aside>
+
+  <footer class="footer text-white pt-5">
+    <div class="container text-center">
+      <img src="img/logo.png" alt="Logo EUREKACLEAN" style="height:50px;width:auto;" class="mb-2">
+      <h5 class="fw-bold">EUREKACLEAN</h5>
+      <p>Tu aliado en limpieza profesional</p>
+
+      <div class="mt-3">
+        <a href="acerca.html" class="me-3">Nosotros</a>
+        <a href="contacto.html" class="me-3">Contacto</a>
+        <a href="tienda.html">Catalogo</a>
+      </div>
+
+      <div class="footer-bottom mt-4">
+        &copy; 2026 EUREKACLEAN - Todos los derechos reservados
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/catalog-store.js?v=20260604scan2"></script>
+  <script src="js/catalog-market-priority.js?v=20260604scan2"></script>
+  <script src="js/catalog-page.js?v=20260605noflicker1"></script>
+  <script src="js/auth-ui.js?v=20260605noflicker1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

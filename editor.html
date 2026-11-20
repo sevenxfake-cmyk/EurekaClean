@@ -1,0 +1,373 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="page-data-pending">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor | EUREKACLEAN</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style-editor.css?v=20260605editor1">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="stylesheet" href="css/style-auth-admin.css?v=20260605noflicker1">
+  <link rel="stylesheet" href="css/style-mobile.css?v=20260605noflicker1">
+  <script src="js/runtime-config.js?v=20260604scan2"></script>
+  <script src="js/app-config.js?v=20260604scan2"></script>
+  <script src="js/auth-admin-flag.js?v=20260605noflicker1"></script>
+</head>
+<body class="page-editor">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+    <div class="container nav-shell">
+      <a class="navbar-brand fw-bold text-white d-inline-flex align-items-center gap-2" href="index.html">
+        <img src="img/logo.png" alt="Logo EUREKACLEAN">
+        <span>EUREKACLEAN</span>
+      </a>
+
+      <button class="navbar-toggler nav-menu-pill" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+        <span class="nav-menu-icon" aria-hidden="true">&#9776;</span>
+        <span>Menu</span>
+      </button>
+
+      <form class="nav-search" action="tienda.html" method="get" role="search">
+        <input name="q" type="search" placeholder="Busca productos, marcas y mas..." aria-label="Buscar productos">
+        <button type="submit" aria-label="Buscar">&#128269;</button>
+      </form>
+
+      <div class="nav-action-row">
+        <div class="nav-auth-action" id="navAuthSlot">
+          <a class="nav-icon-link nav-account-link" href="login.html" aria-label="Iniciar sesion">&#128100;</a>
+        </div>
+        <a class="nav-icon-link nav-cart-link" href="proforma.html" aria-label="Ver proforma">&#128722;<span class="nav-cart-count" hidden>0</span></a>
+      </div>
+
+      <div class="collapse navbar-collapse nav-menu-panel" id="menu">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="acerca.html">Acerca</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="tienda.html">Catalogo</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link nav-editor-link active" href="editor.html">Editor</a></li>
+          <li class="nav-item"><a class="nav-link" href="proforma.html">Proforma</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="editor-page">
+    <div class="container-fluid editor-page-container">
+      <div class="editor-shell">
+        <div class="editor-head-shell">
+          <div class="editor-head">
+            <div>
+              <p class="editor-kicker mb-1">ADMINISTRACION DE CATALOGO</p>
+              <h1 class="h3 mb-1">Panel de administracion</h1>
+              <p class="mb-0">Crea productos nuevos y luego administra el catalogo completo desde un solo panel.</p>
+            </div>
+            <div class="editor-head-actions">
+              <a href="tienda.html" class="btn btn-dark btn-sm">Ver catalogo</a>
+              <a href="proforma.html" class="btn btn-outline-dark btn-sm">Creador de proforma</a>
+              <a href="proforma-enviar.html" class="btn btn-outline-dark btn-sm">Envio de proforma</a>
+            </div>
+          </div>
+
+          <div id="editorAccessAlert" class="alert d-none mt-3 mb-0" role="alert"></div>
+        </div>
+
+        <section id="editorPanel" class="d-none editor-main-shell">
+          <article id="editorAddPanel" class="editor-add-panel">
+            <div class="editor-add-head">
+              <div>
+                <p class="editor-add-kicker mb-1">ALTA DE PRODUCTO</p>
+                <h2 class="h5 mb-1">Agregar nuevo producto</h2>
+                <p class="editor-help-note mt-2 mb-2">Define la categoria interna y tambien la categoria/subcategoria visible del catalogo.</p>
+                <p class="mb-0 text-muted small">Registra un producto con SKU EUREKA unico, taxonomia visible, imagen y promocion inicial.</p>
+              </div>
+            </div>
+            <form id="editorAddForm" novalidate>
+              <div class="editor-add-layout">
+                <div class="editor-add-main">
+                  <div class="row g-3">
+                    <div class="col-lg-4 col-md-6">
+                      <label for="editorNewCategory" class="form-label small fw-semibold">Categoria interna</label>
+                      <select id="editorNewCategory" class="form-select form-select-sm"></select>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                      <label for="editorNewSourceCategory" class="form-label small fw-semibold">Categoria visible</label>
+                      <input id="editorNewSourceCategory" type="text" class="form-control form-control-sm" placeholder="Ej. Control de plagas" maxlength="120">
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                      <label for="editorNewSourceSubcategory" class="form-label small fw-semibold">Subcategoria visible</label>
+                      <input id="editorNewSourceSubcategory" type="text" class="form-control form-control-sm" placeholder="Ej. Raticidas" maxlength="120">
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                      <label for="editorNewCode" class="form-label small fw-semibold">SKU EUREKA</label>
+                      <input id="editorNewCode" type="text" class="form-control form-control-sm" placeholder="UNI00001" maxlength="40" readonly required>
+                    </div>
+                    <div class="col-lg-8 col-md-12">
+                      <label for="editorNewName" class="form-label small fw-semibold">Nombre</label>
+                      <input id="editorNewName" type="text" class="form-control form-control-sm" placeholder="Nombre del producto" maxlength="120" required>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                      <label for="editorNewPrice" class="form-label small fw-semibold">Precio base</label>
+                      <input id="editorNewPrice" type="number" min="0" step="0.01" class="form-control form-control-sm text-end" value="0.00" required>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                      <label for="editorNewDiscount" class="form-label small fw-semibold">Promo %</label>
+                      <input id="editorNewDiscount" type="number" min="0" max="90" step="1" class="form-control form-control-sm text-end" value="0">
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                      <label for="editorNewUnit" class="form-label small fw-semibold">UM</label>
+                      <input id="editorNewUnit" type="text" class="form-control form-control-sm" placeholder="UND" maxlength="40">
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                      <label for="editorNewImage" class="form-label small fw-semibold">URL imagen (opcional)</label>
+                      <input id="editorNewImage" type="text" class="form-control form-control-sm" placeholder="https://... o img/productos/archivo.jpg">
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                      <label for="editorNewImageFile" class="form-label small fw-semibold">Insertar imagen</label>
+                      <input id="editorNewImageFile" type="file" accept="image/*" class="form-control form-control-sm">
+                    </div>
+                  </div>
+                </div>
+
+                <aside class="editor-add-side">
+                  <div class="editor-add-summary">
+                    <span class="editor-add-summary-label">Precio final estimado</span>
+                    <strong id="editorNewFinalPrice" class="editor-add-summary-price">S/. 0.00</strong>
+                    <span id="editorNewPromoStatus" class="badge editor-promo-status editor-promo-inactive">Promo inactiva</span>
+                  </div>
+                  <div>
+                    <label class="form-label small fw-semibold">Vista previa</label>
+                    <div id="editorNewImagePreview" class="editor-image-preview-box editor-image-preview-box-sm">
+                      <span class="editor-image-empty">Sin imagen</span>
+                    </div>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="editorNewActive" checked>
+                    <label class="form-check-label small fw-semibold" for="editorNewActive">Activo</label>
+                  </div>
+                  <div class="d-flex gap-2 flex-wrap editor-add-actions">
+                    <button type="submit" class="btn btn-success btn-sm">Guardar nuevo</button>
+                    <button type="button" id="editorAddCancelBtn" class="btn btn-outline-secondary btn-sm">Limpiar formulario</button>
+                  </div>
+                </aside>
+              </div>
+            </form>
+          </article>
+
+          <article class="editor-excel-panel mt-4">
+            <div class="editor-excel-head">
+              <div>
+                <p class="editor-add-kicker mb-1">IMPORTACION EXCEL</p>
+                <h2 class="h5 mb-1">Auto editor de catalogo</h2>
+                <p class="editor-help-note mt-2 mb-0">Inserta un Excel (.xlsx/.xls) con columnas tipo: SKU EUREKA, PRODUCTO, UM, ESTADO, CATEGORIA, SUBCATEGORIA y P VENTA. PROMO e IMAGEN siguen siendo opcionales.</p>
+              </div>
+            </div>
+
+            <div id="editorExcelDropZone" class="editor-excel-dropzone" tabindex="0" role="button" aria-label="Arrastra o selecciona un archivo Excel">
+              <input id="editorExcelInput" type="file" accept=".xlsx,.xls" class="d-none">
+              <span class="editor-excel-drop-icon" aria-hidden="true">&#8682;</span>
+              <p class="editor-excel-drop-title mb-1">Arrastra tus archivos aqui</p>
+              <p class="editor-excel-drop-subtitle mb-0">o haz clic para seleccionar un Excel</p>
+            </div>
+
+            <div class="editor-excel-actions mt-2">
+              <button id="editorExcelPickBtn" type="button" class="btn btn-outline-secondary btn-sm">Elegir Excel</button>
+              <span id="editorExcelFileName" class="small text-muted">Sin archivo cargado.</span>
+            </div>
+
+            <div id="editorExcelAlert" class="alert d-none mt-3 mb-0" role="alert"></div>
+          </article>
+
+          <div class="editor-catalog-head mt-4">
+            <div>
+              <p class="editor-add-kicker mb-1">EDITOR DE CATALOGO</p>
+              <h2 class="h5 mb-1">Gestion y cambios del catalogo</h2>
+                <p class="editor-help-note mt-2 mb-0">Busca productos para actualizar SKU, categoria visible, subcategoria, precios, promo e imagen.</p>
+            </div>
+          </div>
+
+          <div class="editor-toolbar mt-3">
+            <input id="editorSearchInput" type="search" class="form-control" placeholder="Buscar por SKU EUREKA, nombre o categoria...">
+            <button id="editorSearchClearBtn" type="button" class="btn btn-outline-secondary btn-sm">Limpiar</button>
+          </div>
+
+          <div id="editorStatusAlert" class="alert d-none mt-3" role="alert"></div>
+
+          <div class="table-responsive mt-3 editor-table-wrap">
+            <table class="table align-middle editor-table mb-0">
+              <thead>
+                <tr>
+                  <th>Taxonomia</th>
+                  <th>SKU EUREKA</th>
+                  <th>Nombre</th>
+                  <th class="text-end">Precio (S/)</th>
+                  <th class="text-end">Promo %</th>
+                  <th class="text-end">Precio final</th>
+                  <th>Imagen (URL/Ruta)</th>
+                  <th class="text-center">Vista</th>
+                  <th class="text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="editorTableBody"></tbody>
+            </table>
+          </div>
+
+          <nav class="mt-3">
+            <ul id="editorPagination" class="pagination justify-content-center mb-0"></ul>
+          </nav>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div id="editorConfirmModal" class="editor-confirm-modal d-none" aria-hidden="true">
+    <div class="editor-confirm-backdrop" data-confirm-close></div>
+    <section class="editor-confirm-card" role="dialog" aria-modal="true" aria-labelledby="editorConfirmTitle">
+      <p id="editorConfirmStepLabel" class="editor-confirm-kicker">PASO 1 DE 2</p>
+      <h2 id="editorConfirmTitle" class="h5 mb-2">Confirmar accion</h2>
+      <p id="editorConfirmMessage" class="editor-confirm-message mb-3"></p>
+
+      <div id="editorConfirmStepOne" class="editor-confirm-step">
+        <p class="mb-0 small text-muted">Revisa la accion y continua al paso final.</p>
+      </div>
+
+      <div id="editorConfirmStepTwo" class="editor-confirm-step d-none">
+        <label for="editorConfirmKeywordInput" class="form-label small fw-semibold mb-1">Confirmacion final</label>
+        <p class="small mb-2">Escribe <strong id="editorConfirmKeywordView">GUARDAR</strong> para completar la accion.</p>
+        <input id="editorConfirmKeywordInput" type="text" class="form-control form-control-sm" autocomplete="off">
+        <p id="editorConfirmError" class="editor-confirm-error d-none mt-2 mb-0">Texto de confirmacion incorrecto.</p>
+      </div>
+
+      <div class="editor-confirm-actions mt-3">
+        <button id="editorConfirmCancelBtn" type="button" class="btn btn-outline-secondary btn-sm">Cancelar</button>
+        <button id="editorConfirmNextBtn" type="button" class="btn btn-dark btn-sm">Continuar</button>
+        <button id="editorConfirmAcceptBtn" type="button" class="btn btn-sm d-none">Confirmar</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal fade editor-product-preview-modal" id="editorProductPreviewModal" tabindex="-1" aria-labelledby="editorProductPreviewName" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body pt-2">
+          <div class="product-preview-layout">
+            <div class="product-preview-media">
+              <img id="editorProductPreviewImage" src="" alt="Producto" loading="lazy">
+            </div>
+            <div class="product-preview-info">
+              <p id="editorProductPreviewCategory" class="product-preview-category mb-2">Catalogo</p>
+              <h3 id="editorProductPreviewName" class="product-preview-name mb-1">Producto</h3>
+              <p id="editorProductPreviewCode" class="product-preview-code mb-3">SKU EUREKA</p>
+              <p id="editorProductPreviewDescription" class="product-preview-description mb-3"></p>
+              <p id="editorProductPreviewState" class="product-preview-stock mb-3">Activo</p>
+              <div class="product-preview-price-row mb-3">
+                <strong id="editorProductPreviewPrice" class="product-preview-price">S/. 0.00</strong>
+                <span id="editorProductPreviewOldPrice" class="product-preview-old-price d-none"></span>
+              </div>
+
+              <div class="editor-modal-fields mb-3">
+                <div class="editor-modal-field">
+                  <label for="editorModalCodeInput" class="form-label small fw-semibold mb-1">SKU EUREKA</label>
+                  <input id="editorModalCodeInput" type="text" class="form-control form-control-sm" maxlength="40">
+                </div>
+                <div class="editor-modal-field">
+                  <label for="editorModalNameInput" class="form-label small fw-semibold mb-1">Nombre</label>
+                  <input id="editorModalNameInput" type="text" class="form-control form-control-sm" maxlength="120">
+                </div>
+                <div class="editor-modal-field">
+                  <label for="editorModalPriceInput" class="form-label small fw-semibold mb-1">Precio base</label>
+                  <input id="editorModalPriceInput" type="number" min="0" step="0.01" class="form-control form-control-sm text-end">
+                </div>
+                <div class="editor-modal-field">
+                  <label for="editorModalDiscountInput" class="form-label small fw-semibold mb-1">Promo %</label>
+                  <input id="editorModalDiscountInput" type="number" min="0" max="90" step="1" class="form-control form-control-sm text-end">
+                </div>
+                <div class="editor-modal-field">
+                  <label for="editorModalSourceCategoryInput" class="form-label small fw-semibold mb-1">Categoria visible</label>
+                  <input id="editorModalSourceCategoryInput" type="text" class="form-control form-control-sm" maxlength="120">
+                </div>
+                <div class="editor-modal-field">
+                  <label for="editorModalSourceSubcategoryInput" class="form-label small fw-semibold mb-1">Subcategoria visible</label>
+                  <input id="editorModalSourceSubcategoryInput" type="text" class="form-control form-control-sm" maxlength="120">
+                </div>
+                <div class="editor-modal-field">
+                  <label for="editorModalUnitInput" class="form-label small fw-semibold mb-1">UM</label>
+                  <input id="editorModalUnitInput" type="text" class="form-control form-control-sm" maxlength="40">
+                </div>
+                <div class="editor-modal-field editor-modal-field-full">
+                  <label for="editorModalImageInput" class="form-label small fw-semibold mb-1">Imagen (URL/Ruta)</label>
+                  <input id="editorModalImageInput" type="text" class="form-control form-control-sm">
+                </div>
+                <div class="editor-modal-field editor-modal-field-full">
+                  <label for="editorModalImageUploadInput" class="form-label small fw-semibold mb-1">Agregar imagen (archivo)</label>
+                  <input id="editorModalImageUploadInput" type="file" accept="image/*" class="form-control form-control-sm">
+                </div>
+                <div class="editor-modal-field editor-modal-field-full">
+                  <label for="editorModalDescriptionInput" class="form-label small fw-semibold mb-1">Descripcion</label>
+                  <textarea id="editorModalDescriptionInput" class="form-control form-control-sm" rows="3" maxlength="600"></textarea>
+                </div>
+                <div class="editor-modal-field editor-modal-field-full">
+                  <div class="form-check">
+                    <input id="editorModalActiveInput" class="form-check-input" type="checkbox">
+                    <label class="form-check-label small fw-semibold" for="editorModalActiveInput">Activo en catalogo</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-preview-actions d-flex gap-2">
+                <button type="button" class="btn btn-outline-secondary btn-sm w-100" data-bs-dismiss="modal">Cerrar</button>
+                <button id="editorModalSaveBtn" type="button" class="btn btn-dark btn-sm w-100">Guardar cambios</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer text-white pt-5">
+    <div class="container text-center">
+      <img src="img/logo.png" alt="Logo EUREKACLEAN" style="height:50px;width:auto;" class="mb-2">
+      <h5 class="fw-bold">EUREKACLEAN</h5>
+      <p>Tu aliado en limpieza profesional</p>
+
+      <div class="mt-3">
+        <a href="acerca.html" class="me-3">Nosotros</a>
+        <a href="contacto.html" class="me-3">Contacto</a>
+        <a href="tienda.html">Catalogo</a>
+      </div>
+
+      <div class="footer-bottom mt-4">
+        &copy; 2026 EUREKACLEAN - Todos los derechos reservados
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/catalog-store.js?v=20260604scan2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" integrity="sha384-vtjasyidUo0kW94K5MXDXntzOJpQgBKXmE7e2Ga4LG0skTTLeBi97eFAXsqewJjw" crossorigin="anonymous"></script>
+  <script src="js/editor-page.js?v=20260605editor1"></script>
+  <script src="js/auth-ui.js?v=20260605noflicker1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

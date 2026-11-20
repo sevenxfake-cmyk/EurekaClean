@@ -1,0 +1,1082 @@
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  padding-top: 56px;
+  background: #edf3ef;
+}
+
+.custom-navbar {
+  background: linear-gradient(118deg, #47c924 0%, #21b85f 52%, #1b8f85 100%);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(14, 72, 47, 0.18);
+}
+
+.navbar-brand {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  font-weight: 600;
+  color: white !important;
+}
+
+.nav-link.active {
+  border-bottom: 2px solid #fff;
+}
+
+.nav-link:hover {
+  opacity: 0.8;
+}
+
+.proforma-section {
+  padding: 1.2rem 0 2.2rem;
+}
+
+.proforma-shell {
+  background: #f8faf9;
+  border: 1px solid #e5ece7;
+  border-radius: 18px;
+  padding: 1.1rem;
+  min-height: 520px;
+}
+
+.proforma-head h1 {
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+}
+
+.proforma-head p {
+  color: #5f6d64;
+  margin: 0;
+}
+
+.proforma-card {
+  background: #fff;
+  border: 1px solid #e3ebe5;
+  border-radius: 14px;
+  padding: 0.9rem;
+}
+
+.proforma-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-height: 120px;
+}
+
+.proforma-item {
+  background: #fff;
+  border: 1px solid #e6ece8;
+  border-radius: 12px;
+  padding: 0.72rem;
+}
+
+.proforma-item h5 {
+  font-size: 0.94rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.proforma-item p {
+  margin: 0.16rem 0 0;
+  color: #5d6b63;
+  font-size: 0.86rem;
+}
+
+.proforma-item-promo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.36rem;
+  margin-top: 0.3rem;
+}
+
+.proforma-item-promo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #47c924 0%, #359d18 100%);
+}
+
+.proforma-item-promo-old {
+  font-size: 0.76rem;
+  color: #718076;
+  text-decoration: line-through;
+}
+
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #d4dfd8;
+  background: #f4f8f5;
+  border-radius: 8px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.qty-val {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.remove-btn {
+  border: none;
+  background: none;
+  color: #b42318;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0;
+}
+
+.proforma-summary {
+  border-top: 1px solid #e3ebe5;
+  padding-top: 0.8rem;
+}
+
+/* Ensure action buttons stay readable in dark mode */
+html.theme-dark:not(.auth-is-admin) body.page-proforma .proforma-summary .btn-outline-dark,
+html.theme-dark:not(.auth-is-admin) body.page-proforma #saveRucBtn.btn-outline-dark {
+  color: #dce9f7;
+  border-color: rgba(195, 213, 234, 0.42);
+  background: #142437;
+}
+
+html.theme-dark:not(.auth-is-admin) body.page-proforma .proforma-summary .btn-outline-dark:hover,
+html.theme-dark:not(.auth-is-admin) body.page-proforma #saveRucBtn.btn-outline-dark:hover {
+  color: #f2f8ff;
+  border-color: rgba(213, 227, 244, 0.62);
+  background: #1a3149;
+}
+
+html.theme-dark:not(.auth-is-admin) body.page-proforma .proforma-summary .btn-outline-dark:disabled,
+html.theme-dark:not(.auth-is-admin) body.page-proforma #saveRucBtn.btn-outline-dark:disabled {
+  color: #8ea5be;
+  border-color: rgba(134, 154, 176, 0.42);
+  background: #102030;
+  opacity: 1;
+}
+
+.proforma-preview {
+  background: #fff;
+  border: 1px solid #dfe7e2;
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.proforma-preview h3 {
+  font-size: 1.06rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.proforma-preview-modal .modal-dialog {
+  max-width: min(1100px, 96vw);
+}
+
+.proforma-preview-modal {
+  z-index: 1060;
+}
+
+.proforma-fallback-backdrop {
+  z-index: 1055;
+}
+
+.proforma-preview-modal .modal-content {
+  border: 1px solid #dfe7e2;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f3f8f5;
+}
+
+.proforma-preview-modal .modal-header,
+.proforma-preview-modal .modal-footer {
+  background: #fff;
+  border-color: #e3ebe5;
+  padding: 0.78rem 0.95rem;
+}
+
+.proforma-preview-modal .modal-body {
+  padding: 0.9rem;
+}
+
+.proforma-preview-modal .proforma-preview {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.proforma-whatsapp-prompt {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.proforma-whatsapp-prompt.d-none {
+  display: none;
+}
+
+.proforma-whatsapp-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 23, 16, 0.52);
+  backdrop-filter: blur(2px);
+}
+
+.proforma-whatsapp-card {
+  position: relative;
+  width: min(920px, 100%);
+  max-height: calc(100vh - 2rem);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #d7eadc;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 26px 70px rgba(13, 50, 28, 0.24);
+  padding: 1.1rem;
+}
+
+.proforma-whatsapp-close {
+  position: absolute;
+  top: 0.72rem;
+  right: 0.72rem;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #dcebe1;
+  border-radius: 999px;
+  background: #f5fbf7;
+  color: #183423;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.proforma-whatsapp-kicker {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  color: #0f7a2d;
+  background: #e8f8ec;
+  border: 1px solid #c9edcf;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.proforma-whatsapp-card h2 {
+  margin: 0.65rem 2rem 0.35rem 0;
+  color: #102719;
+  font-size: 1.18rem;
+  font-weight: 800;
+}
+
+.proforma-whatsapp-card p {
+  margin: 0 0 0.95rem;
+  color: #52665a;
+  font-size: 0.92rem;
+  line-height: 1.42;
+}
+
+.proforma-whatsapp-preview {
+  min-height: 180px;
+  max-height: min(54vh, 520px);
+  margin: 0 0 0.95rem;
+  padding: 0.7rem;
+  overflow: auto;
+  border: 1px solid #dfe7e2;
+  border-radius: 12px;
+  background: #f3f8f5;
+}
+
+.proforma-whatsapp-preview .doc-wrap {
+  min-width: 720px;
+  box-shadow: 0 10px 30px rgba(13, 50, 28, 0.08);
+}
+
+.proforma-whatsapp-preview .doc-logo {
+  width: 118px;
+}
+
+.proforma-whatsapp-preview .doc-company-name {
+  font-size: 1.05rem;
+}
+
+.proforma-whatsapp-preview .doc-header p,
+.proforma-whatsapp-preview .doc-meta p,
+.proforma-whatsapp-preview .doc-customer p,
+.proforma-whatsapp-preview .doc-table td,
+.proforma-whatsapp-preview .doc-total p {
+  font-size: 0.8rem;
+}
+
+.proforma-whatsapp-preview .doc-table th {
+  font-size: 0.74rem;
+}
+
+.proforma-whatsapp-actions {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr 1.15fr;
+  gap: 0.55rem;
+}
+
+.proforma-whatsapp-actions .btn {
+  min-height: 38px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.proforma-send-shell {
+  min-height: 70vh;
+}
+
+.proforma-send-preview-card {
+  overflow: auto;
+}
+
+.proforma-send-preview {
+  display: block;
+  min-height: 420px;
+}
+
+.proforma-send-preview .doc-wrap {
+  margin: 0;
+}
+
+.proforma-send-actions {
+  position: sticky;
+  top: 112px;
+  overflow: hidden;
+  border-color: rgba(47, 201, 36, 0.62);
+  box-shadow: 0 0 0 1px rgba(47, 201, 36, 0.18), 0 18px 45px rgba(11, 30, 20, 0.24);
+  animation: proformaNoticePulse 2.6s ease-in-out infinite;
+}
+
+.proforma-send-actions::before {
+  content: "";
+  position: absolute;
+  inset: -35% -20% auto auto;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(71, 201, 36, 0.28), rgba(71, 201, 36, 0));
+  pointer-events: none;
+  animation: proformaNoticeGlow 3.2s ease-in-out infinite;
+}
+
+.proforma-send-kicker {
+  position: relative;
+  gap: 0.42rem;
+  box-shadow: 0 0 0 0 rgba(71, 201, 36, 0.46);
+  animation: proformaKickerPop 1.8s ease-in-out infinite;
+}
+
+.proforma-send-kicker span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.58);
+  animation: proformaDotPing 1.35s ease-out infinite;
+}
+
+@keyframes proformaNoticePulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 0 0 1px rgba(47, 201, 36, 0.18), 0 18px 45px rgba(11, 30, 20, 0.24);
+  }
+  50% {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 4px rgba(47, 201, 36, 0.12), 0 22px 54px rgba(34, 197, 94, 0.22);
+  }
+}
+
+@keyframes proformaNoticeGlow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes proformaKickerPop {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(71, 201, 36, 0.38);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(71, 201, 36, 0);
+  }
+}
+
+@keyframes proformaDotPing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.62);
+  }
+  75%,
+  100% {
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proforma-send-actions,
+  .proforma-send-actions::before,
+  .proforma-send-kicker,
+  .proforma-send-kicker span {
+    animation: none !important;
+  }
+}
+
+body.proforma-print-mode {
+  background: #ffffff !important;
+}
+
+body.proforma-print-mode .custom-navbar,
+body.proforma-print-mode .proforma-head,
+body.proforma-print-mode #sendAlert,
+body.proforma-print-mode .proforma-send-actions,
+body.proforma-print-mode .footer {
+  display: none !important;
+}
+
+body.proforma-print-mode .proforma-section {
+  padding: 0 !important;
+  background: #ffffff !important;
+}
+
+body.proforma-print-mode .container,
+body.proforma-print-mode .proforma-shell,
+body.proforma-print-mode .row,
+body.proforma-print-mode .col-lg-8,
+body.proforma-print-mode .proforma-card,
+body.proforma-print-mode .proforma-preview {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+body.proforma-print-mode #sendPanel {
+  display: block !important;
+}
+
+body.proforma-print-mode .doc-wrap {
+  width: 190mm;
+  min-height: 277mm;
+  margin: 0 auto !important;
+  border: 0 !important;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none !important;
+}
+
+body.proforma-print-mode .doc-header {
+  align-items: flex-start;
+  gap: 12mm;
+  border-bottom: 1px solid #dbe5de;
+  padding-bottom: 8mm;
+  margin-bottom: 7mm;
+}
+
+body.proforma-print-mode .doc-logo {
+  width: 38mm;
+}
+
+body.proforma-print-mode .doc-company-name {
+  font-size: 16px;
+}
+
+body.proforma-print-mode .doc-voucher {
+  min-width: 62mm;
+}
+
+body.proforma-print-mode .doc-customer {
+  margin-bottom: 6mm;
+}
+
+body.proforma-print-mode .doc-total {
+  width: 85mm;
+}
+
+/* Keep proforma preview readable in dark mode (fixed light palette) */
+html.theme-dark body .proforma-preview-modal .modal-content {
+  background: #f3f8f5 !important;
+  border-color: #dfe7e2 !important;
+  color: #15212d !important;
+}
+
+html.theme-dark body .proforma-preview-modal .modal-header,
+html.theme-dark body .proforma-preview-modal .modal-footer {
+  background: #ffffff !important;
+  border-color: #e3ebe5 !important;
+  color: #15212d !important;
+}
+
+html.theme-dark body .proforma-preview-modal .modal-title,
+html.theme-dark body .proforma-preview-modal .proforma-preview,
+html.theme-dark body .proforma-preview-modal .doc-wrap,
+html.theme-dark body .proforma-preview-modal .doc-wrap p,
+html.theme-dark body .proforma-preview-modal .doc-wrap h1,
+html.theme-dark body .proforma-preview-modal .doc-wrap h2,
+html.theme-dark body .proforma-preview-modal .doc-wrap h3,
+html.theme-dark body .proforma-preview-modal .doc-wrap h4,
+html.theme-dark body .proforma-preview-modal .doc-wrap h5,
+html.theme-dark body .proforma-preview-modal .doc-wrap h6,
+html.theme-dark body .proforma-preview-modal .doc-wrap td,
+html.theme-dark body .proforma-preview-modal .doc-wrap th,
+html.theme-dark body .proforma-preview-modal .doc-wrap strong {
+  color: #15212d !important;
+}
+
+html.theme-dark body .proforma-preview-modal .doc-wrap {
+  background: #ffffff !important;
+  border-color: #dbe5de !important;
+}
+
+html.theme-dark body .proforma-preview-modal .doc-meta span,
+html.theme-dark body .proforma-preview-modal .doc-customer span,
+html.theme-dark body .proforma-preview-modal .doc-total span,
+html.theme-dark body .proforma-preview-modal .doc-note,
+html.theme-dark body .proforma-preview-modal .doc-row-old-price {
+  color: #4e5d54 !important;
+}
+
+html.theme-dark body .proforma-preview-modal .doc-row-promo {
+  color: #0f7a2d !important;
+}
+
+html.theme-dark body .proforma-preview-modal .doc-table th {
+  background: #f4f8f5 !important;
+}
+
+html.theme-dark body .proforma-preview-modal .doc-customer {
+  background: #f9fcfa !important;
+  border-color: #dbe5de !important;
+}
+
+html.theme-dark body .proforma-preview-modal .doc-total {
+  border-color: #dbe5de !important;
+}
+
+html.theme-dark body .proforma-preview-modal .doc-total p {
+  border-color: #e6ece8 !important;
+}
+
+html.theme-dark body .proforma-preview-modal .doc-total-final {
+  background: #f4f8f5 !important;
+}
+
+html.theme-dark body.page-proforma .doc-wrap,
+html.theme-dark body.page-proforma .doc-wrap p,
+html.theme-dark body.page-proforma .doc-wrap h1,
+html.theme-dark body.page-proforma .doc-wrap h2,
+html.theme-dark body.page-proforma .doc-wrap h3,
+html.theme-dark body.page-proforma .doc-wrap h4,
+html.theme-dark body.page-proforma .doc-wrap h5,
+html.theme-dark body.page-proforma .doc-wrap h6,
+html.theme-dark body.page-proforma .doc-wrap td,
+html.theme-dark body.page-proforma .doc-wrap th,
+html.theme-dark body.page-proforma .doc-wrap strong {
+  color: #1d2b23 !important;
+}
+
+html.theme-dark body.page-proforma .doc-wrap {
+  background: #ffffff !important;
+  border-color: #dbe5de !important;
+}
+
+html.theme-dark body.page-proforma .doc-meta span,
+html.theme-dark body.page-proforma .doc-customer span,
+html.theme-dark body.page-proforma .doc-total span,
+html.theme-dark body.page-proforma .doc-note,
+html.theme-dark body.page-proforma .doc-row-old-price {
+  color: #43574c !important;
+}
+
+html.theme-dark body.page-proforma .doc-company-name,
+html.theme-dark body.page-proforma .doc-voucher-number,
+html.theme-dark body.page-proforma .doc-total-final {
+  color: #163727 !important;
+}
+
+html.theme-dark body.page-proforma .doc-table th {
+  background: #eef5f0 !important;
+  color: #0f1f18 !important;
+}
+
+html.theme-dark body.page-proforma .doc-customer {
+  background: #f7faf8 !important;
+  border-color: #cadbd0 !important;
+}
+
+html.theme-dark body.page-proforma .doc-total {
+  background: #ffffff !important;
+  border-color: #cadbd0 !important;
+}
+
+html.theme-dark body.page-proforma .doc-total p {
+  border-color: #dfe9e2 !important;
+}
+
+html.theme-dark body.page-proforma .doc-total-final {
+  background: #eef5f0 !important;
+}
+
+html.theme-dark:not(.auth-is-admin) body.page-proforma .proforma-whatsapp-card {
+  background: #111c28;
+  border-color: rgba(188, 212, 198, 0.24);
+  color: #e8f1ea;
+}
+
+html.theme-dark:not(.auth-is-admin) body.page-proforma .proforma-whatsapp-card h2 {
+  color: #f1f8f3;
+}
+
+html.theme-dark:not(.auth-is-admin) body.page-proforma .proforma-whatsapp-card p {
+  color: #b9c7be;
+}
+
+html.theme-dark:not(.auth-is-admin) body.page-proforma .proforma-whatsapp-close {
+  background: #1a2a38;
+  border-color: rgba(188, 212, 198, 0.28);
+  color: #f1f8f3;
+}
+
+html.theme-dark:not(.auth-is-admin) body.page-proforma .proforma-whatsapp-preview {
+  background: #f3f8f5;
+  border-color: #dfe7e2;
+}
+
+.doc-wrap {
+  border: 1px solid #dbe5de;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #fff;
+  color: #1d2b23;
+}
+
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  border-bottom: 1px dashed #dbe5de;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.doc-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.doc-logo {
+  width: 146px;
+  height: auto;
+  border: 1px solid #dbe5de;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.doc-company {
+  max-width: 360px;
+}
+
+.doc-company-name {
+  color: #163727;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+}
+
+.doc-header h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.doc-header p {
+  margin: 0.12rem 0;
+  color: #34483d;
+  font-size: 0.88rem;
+}
+
+.doc-meta {
+  min-width: 210px;
+}
+
+.doc-voucher {
+  border: 2px solid #18251e;
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
+  min-width: 245px;
+  color: #1d2b23;
+  background: #ffffff;
+}
+
+.doc-voucher-title {
+  margin: 0;
+  color: #254439;
+  font-weight: 800;
+  text-align: center;
+  font-size: 0.93rem;
+}
+
+.doc-voucher-number {
+  margin: 0.12rem 0 0.45rem;
+  color: #1b3128;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.92rem;
+}
+
+.doc-meta p {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin: 0.18rem 0;
+  font-size: 0.88rem;
+}
+
+.doc-meta span {
+  color: #43574c;
+}
+
+.doc-meta strong,
+.doc-customer strong,
+.doc-total strong {
+  color: #1d2b23;
+}
+
+.doc-customer {
+  border: 1px solid #cadbd0;
+  border-radius: 10px;
+  padding: 0.7rem;
+  margin-bottom: 0.75rem;
+  background: #f7faf8;
+  color: #1d2b23;
+}
+
+.doc-customer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem 1rem;
+}
+
+.doc-customer p {
+  margin: 0.16rem 0;
+  font-size: 0.9rem;
+}
+
+.doc-customer span {
+  color: #43574c;
+}
+
+.doc-table th {
+  color: #0f1f18;
+  font-size: 0.8rem;
+  background: #eef5f0;
+}
+
+.doc-table td {
+  color: #101914;
+  font-size: 0.86rem;
+}
+
+.doc-row-promo {
+  color: #0f7a2d;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.doc-row-old-price {
+  color: #748379;
+  text-decoration: line-through;
+}
+
+.doc-total {
+  width: 320px;
+  margin-left: auto;
+  border: 1px solid #cadbd0;
+  border-radius: 8px;
+  overflow: hidden;
+  color: #1d2b23;
+  background: #ffffff;
+}
+
+.doc-total p {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0.34rem 0.55rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #e6ece8;
+}
+
+.doc-total span {
+  color: #43574c;
+}
+
+.doc-total p:last-child {
+  border-bottom: none;
+}
+
+.doc-total-final {
+  color: #163727;
+  font-size: 0.98rem !important;
+  font-weight: 800;
+  background: #eef5f0;
+}
+
+.doc-note {
+  margin: 0.7rem 0 0;
+  font-size: 0.75rem;
+  color: #405348;
+}
+
+.history-count-badge {
+  display: inline-flex;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0f3f1e;
+  background: #def5e2;
+  border: 1px solid #bde7c6;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.6rem;
+  min-height: 86px;
+}
+
+.history-item {
+  border: 1px solid #dde7e0;
+  border-radius: 10px;
+  padding: 0.72rem;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.history-main h4 {
+  font-size: 0.94rem;
+  font-weight: 700;
+  margin: 0 0 0.2rem;
+}
+
+.history-main p {
+  margin: 0.12rem 0;
+  font-size: 0.84rem;
+  color: #4e5d54;
+}
+
+.history-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.history-actions .btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.history-actions .btn-outline-danger:hover {
+  background: #dc3545;
+  color: #fff;
+}
+
+html.theme-dark:not(.auth-is-admin) body.page-proforma .history-actions .btn-outline-danger {
+  border-color: rgba(248, 113, 113, 0.72);
+  color: #fecaca;
+}
+
+html.theme-dark:not(.auth-is-admin) body.page-proforma .history-actions .btn-outline-danger:hover {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #fff;
+}
+
+@media (max-width: 767.98px) {
+  .proforma-preview-modal .modal-dialog {
+    max-width: 100%;
+    margin: 0.5rem;
+  }
+
+  .proforma-preview-modal .modal-header,
+  .proforma-preview-modal .modal-footer {
+    padding: 0.6rem 0.72rem;
+  }
+
+  .proforma-preview-modal .modal-title {
+    font-size: 0.98rem;
+  }
+
+  .proforma-preview-modal .modal-body {
+    padding: 0.62rem;
+  }
+
+  .doc-header {
+    flex-direction: column;
+  }
+
+  .doc-meta {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .doc-voucher {
+    width: 100%;
+  }
+
+  .doc-customer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-total {
+    width: 100%;
+  }
+
+  .proforma-whatsapp-prompt {
+    align-items: flex-end;
+    padding: 0.8rem;
+  }
+
+  .proforma-whatsapp-card {
+    border-radius: 14px;
+    padding: 1rem;
+    max-height: calc(100vh - 1.6rem);
+  }
+
+  .proforma-whatsapp-preview {
+    max-height: 46vh;
+    padding: 0.55rem;
+  }
+
+  .proforma-whatsapp-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .proforma-send-actions {
+    position: static;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 10mm;
+}
+
+@media print {
+  html,
+  body {
+    width: 210mm;
+    min-height: 297mm;
+    background: #ffffff !important;
+  }
+
+  body.proforma-print-mode .custom-navbar,
+  body.proforma-print-mode .proforma-head,
+  body.proforma-print-mode #sendAlert,
+  body.proforma-print-mode .proforma-send-actions,
+  body.proforma-print-mode .footer {
+    display: none !important;
+  }
+
+  body.proforma-print-mode .proforma-section,
+  body.proforma-print-mode .container,
+  body.proforma-print-mode .proforma-shell,
+  body.proforma-print-mode .row,
+  body.proforma-print-mode .col-lg-8,
+  body.proforma-print-mode .proforma-card,
+  body.proforma-print-mode .proforma-preview {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  body.proforma-print-mode .doc-wrap {
+    width: auto !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  body.proforma-print-mode .doc-table thead {
+    display: table-header-group;
+  }
+
+  body.proforma-print-mode .doc-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+.footer {
+  background-color: #111;
+  color: white;
+}
+
+.footer a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #47c924;
+}
+
+.footer-bottom {
+  background: #000;
+  padding: 15px 0;
+}

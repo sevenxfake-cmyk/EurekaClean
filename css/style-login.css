@@ -1,0 +1,226 @@
+﻿body {
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(180deg, #e9f2e8 0%, #f4f8f3 100%);
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.custom-navbar {
+  background: linear-gradient(118deg, #47c924 0%, #21b85f 52%, #1b8f85 100%);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(14, 72, 47, 0.18);
+}
+
+.navbar-brand {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  font-weight: 600;
+  color: white !important;
+}
+
+.nav-link.active {
+  border-bottom: 2px solid #fff;
+}
+
+.nav-link:hover {
+  opacity: 0.8;
+}
+
+.auth-section {
+  min-height: calc(100vh - 170px);
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  border: 1px solid #e8eee9;
+  border-radius: 18px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+}
+
+.auth-title {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  color: #607068;
+  margin-bottom: 1rem;
+}
+
+.auth-switch {
+  background: #f2f7f3;
+  border-radius: 999px;
+  padding: 0.3rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.auth-switch .btn {
+  border-radius: 999px;
+  width: 50%;
+  font-weight: 700;
+  border: none;
+  color: #3b4b42;
+}
+
+.auth-switch .btn.active {
+  background: #47c924;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(71, 201, 36, 0.35);
+}
+
+.btn-brand {
+  background: #47c924;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+}
+
+.btn-brand:hover {
+  background: #3cad1e;
+  color: #fff;
+}
+
+.auth-switch.slider{
+  position: absolute;
+  width: calc(50% - 0.6rem);
+  height: calc(100% - 0.6rem);
+  background: #47c924;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+.google-quick-login {
+  margin: 0.2rem 0 1rem;
+}
+
+.google-signin-button {
+  display: flex;
+  min-height: 44px;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.google-setup-button {
+  width: min(100%, 400px);
+  min-height: 44px;
+  margin: 0 auto;
+  padding: 0.55rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.72rem;
+  border: 1px solid #d7dfda;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #27332c;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: none;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.google-setup-button:hover,
+.google-setup-button:focus-visible {
+  border-color: #aebbb3;
+  background: #f7faf8;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.google-setup-g {
+  color: #4285f4;
+  font-family: Arial, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+html.theme-dark body .google-setup-button {
+  border-color: rgba(219, 230, 242, 0.18);
+  background: #172433;
+  color: #e6edf5;
+}
+
+html.theme-dark body .google-setup-button:hover,
+html.theme-dark body .google-setup-button:focus-visible {
+  border-color: rgba(219, 230, 242, 0.3);
+  background: #203243;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.72rem;
+  margin-top: 0.85rem;
+  color: #718078;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e2e9e4;
+}
+
+html.theme-dark body .auth-divider {
+  color: #a9bac9;
+}
+
+html.theme-dark body .auth-divider::before,
+html.theme-dark body .auth-divider::after {
+  background: rgba(219, 230, 242, 0.16);
+}
+
+.text-action {
+  border: none;
+  background: none;
+  color: #2f8d18;
+  font-weight: 700;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.footer {
+  background: #111;
+  color: white;
+}
+
+.logout-icon-btn {
+  width: 38px;
+  height: 38px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 0;
+  color: #151515;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.logout-icon-btn:hover {
+  background: #f4f6f5;
+  color: #111;
+  border-color: rgba(0, 0, 0, 0.28);
+}
+
+.logout-icon-btn svg {
+  width: 22px;
+  height: 22px;
+}

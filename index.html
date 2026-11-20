@@ -1,0 +1,594 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="page-data-pending">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EUREKACLEAN - Productos de Limpieza Profesional</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="css/style-index.css?v=20260604scan2">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="stylesheet" href="css/style-auth-admin.css?v=20260605noflicker1">
+  <link rel="stylesheet" href="css/style-mobile.css?v=20260605noflicker1">
+  <script src="js/runtime-config.js?v=20260604scan2"></script>
+  <script src="js/app-config.js?v=20260604scan2"></script>
+  <script src="js/auth-admin-flag.js?v=20260605noflicker1"></script>
+</head>
+
+<body class="page-index">
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+    <div class="container nav-shell">
+      <a class="navbar-brand text-white d-inline-flex align-items-center gap-2" href="index.html">
+        <img src="img/logo.png" alt="Logo EUREKACLEAN">
+        <span>EUREKACLEAN</span>
+      </a>
+
+      <button class="navbar-toggler nav-menu-pill" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+        <span class="nav-menu-icon" aria-hidden="true">&#9776;</span>
+        <span>Menu</span>
+      </button>
+
+      <form class="nav-search" action="tienda.html" method="get" role="search">
+        <input name="q" type="search" placeholder="Busca productos, marcas y mas..." aria-label="Buscar productos">
+        <button type="submit" aria-label="Buscar">&#128269;</button>
+      </form>
+
+      <div class="nav-action-row">
+        <div class="nav-auth-action" id="navAuthSlot">
+          <a class="nav-icon-link nav-account-link" href="login.html" aria-label="Iniciar sesion">&#128100;</a>
+        </div>
+        <a class="nav-icon-link nav-cart-link" href="proforma.html" aria-label="Ver proforma">&#128722;<span class="nav-cart-count" hidden>0</span></a>
+      </div>
+
+      <div class="collapse navbar-collapse nav-menu-panel" id="menu">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="acerca.html">Acerca</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="tienda.html">Catalogo</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link nav-editor-link" href="editor.html">Editor</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero-principal" class="hero">
+    <div class="container text-white">
+      <div class="hero-content">
+        <h1 class="display-4 fw-bold mb-3">
+          Soluciones Profesionales en Limpieza
+        </h1>
+        <p class="lead mb-4">
+          Productos industriales y domÃ©sticos de alta calidad para empresas y hogares.
+        </p>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="tienda.html" class="btn btn-success btn-lg fw-semibold rounded-pill px-4">
+            Ver Catalogo
+          </a>
+          <a href="#blog-limpieza" class="btn btn-outline-light btn-lg fw-semibold rounded-pill px-4">
+            Leer Blog
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARRUSEL DE PROMOCIONES (ESTILO CATALOGO) -->
+  <section class="promo-home py-5">
+    <div class="container">
+      <div class="promo-shell mb-0">
+        <div class="promo-head">
+          <div>
+            <span class="promo-kicker">OFERTAS DE LA SEMANA</span>
+            <h2 class="promo-title mb-1">Productos en promocion</h2>
+            <p class="promo-subtitle mb-0">Al iniciar el catalogo veras primero ofertas destacadas.</p>
+          </div>
+          <span id="promoCountBadgeHome" class="promo-count-badge">0 items</span>
+        </div>
+
+        <div class="promo-carousel-frame">
+          <div id="homePromoCarousel" class="carousel slide promo-carousel" data-bs-pause="hover">
+            <div id="promoIndicatorsHome" class="carousel-indicators promo-indicators"></div>
+            <div id="promoInnerHome" class="carousel-inner"></div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#homePromoCarousel" data-bs-slide="prev"
+              aria-label="Promocion anterior">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#homePromoCarousel" data-bs-slide="next"
+              aria-label="Promocion siguiente">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-sellers py-5">
+    <div class="container">
+      <div class="featured-sellers-shell">
+        <div class="featured-sellers-head">
+          <div>
+            <span class="featured-sellers-kicker">TOP VENTAS</span>
+            <h2 class="fw-bold mb-1">9 productos mas vendidos</h2>
+            <p class="featured-sellers-subtitle mb-0">Un carrusel con los productos de mayor salida comercial segun tu
+              Excel.</p>
+          </div>
+          <span id="featuredSellersBadge" class="featured-sellers-badge">0 productos</span>
+        </div>
+
+        <div class="featured-sellers-frame">
+          <div id="featuredSellersCarousel" class="carousel slide featured-sellers-carousel" data-bs-pause="hover">
+            <div id="featuredSellersIndicators" class="carousel-indicators featured-sellers-indicators"></div>
+            <div id="featuredSellersInner" class="carousel-inner"></div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#featuredSellersCarousel"
+              data-bs-slide="prev" aria-label="Producto anterior">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#featuredSellersCarousel"
+              data-bs-slide="next" aria-label="Producto siguiente">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUEVO PRODUCTO -->
+  <section class="new-product py-5">
+    <div class="container">
+      <div class="new-product-shell">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-5">
+            <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&w=900&q=80"
+              class="img-fluid rounded-4" alt="Nuevo desengrasante BioActive X9">
+          </div>
+          <div class="col-lg-7">
+            <span class="new-product-kicker">NUEVO PRODUCTO</span>
+            <h2 class="fw-bold mt-2">Desengrasante BioActive X9</h2>
+            <p class="mb-3">
+              Nuestro nuevo BioActive X9 estÃ¡ formulado para remover grasa difÃ­cil en cocina industrial,
+              campanas, hornos y superficies de alto trÃ¡nsito sin dejar residuos pegajosos.
+            </p>
+            <p class="mb-3">
+              Ofrece limpieza profunda, aroma suave y rendimiento profesional en aplicaciones diarias.
+              Recomendado para restaurantes, hoteles y comedores institucionales.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="new-product-chip">Alto rendimiento</span>
+              <span class="new-product-chip">Secado rÃ¡pido</span>
+              <span class="new-product-chip">Uso profesional</span>
+            </div>
+            <a href="tienda.html" class="btn btn-success rounded-pill px-4 mt-4">Quiero conocerlo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG PUBLICO -->
+  <section id="blog-limpieza" class="clean-blog py-5">
+    <div class="container">
+      <div class="section-head text-center mb-4">
+        <span class="section-kicker">BLOG PUBLICO</span>
+        <h2 class="fw-bold mb-2">Tips de limpieza y seguridad quÃ­mica</h2>
+        <p class="text-muted mb-0">Buenas prÃ¡cticas para hogares y espacios de trabajo.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <article class="blog-card h-100">
+            <span class="blog-tag">Seguridad</span>
+            <h3>No mezcles lejÃ­a con amonÃ­aco</h3>
+            <p>
+              Esta combinaciÃ³n puede liberar gases tÃ³xicos que irritan ojos, piel y vÃ­as respiratorias.
+              Usa un solo producto por etapa y ventila siempre el ambiente.
+            </p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="blog-card h-100">
+            <span class="blog-tag">PrevenciÃ³n</span>
+            <h3>Evita combinar lejÃ­a con Ã¡cidos</h3>
+            <p>
+              Mezclar lejÃ­a con Ã¡cido muriÃ¡tico, vinagre u otros Ã¡cidos puede generar vapores peligrosos.
+              Respeta etiquetas y diluciones indicadas por fabricante.
+            </p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="blog-card h-100">
+            <span class="blog-tag">Buenas prÃ¡cticas</span>
+            <h3>Orden recomendado de limpieza</h3>
+            <p>
+              Retira polvo, aplica detergente, enjuaga y desinfecta al final. AsÃ­ reduces riesgos,
+              mejoras resultados y ahorras producto en cada jornada.
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer text-white pt-5">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-3 mb-4">
+          <img src="img/logo.png" alt="Logo EUREKACLEAN" style="height:50px;width:auto;" class="mb-2">
+          <h5>EUREKACLEAN</h5>
+          <p>Especialistas en productos de limpieza profesional e industrial.</p>
+        </div>
+
+        <div class="col-md-3 mb-4">
+          <h5>Empresa</h5>
+          <ul class="list-unstyled">
+            <li><a href="acerca.html">Nosotros</a></li>
+            <li><a href="acerca.html">MisiÃ³n y VisiÃ³n</a></li>
+            <li><a href="acerca.html">PolÃ­tica de calidad</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-3 mb-4">
+          <h5>Contacto</h5>
+          <p>Email : eurekaclean@gmail.com</p>
+          <p>Tel : +51 981 292 376</p>
+          <p>Lima, PerÃº</p>
+        </div>
+
+        <div class="col-md-3 mb-4">
+          <h5>Explorar</h5>
+          <ul class="list-unstyled">
+            <li><a href="tienda.html">Ver Catalogo</a></li>
+            <li><a href="contacto.html">ContÃ¡ctanos</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom text-center text-white">
+      &copy; 2026 EUREKACLEAN - Todos los derechos reservados
+    </div>
+  </footer>
+
+  <script src="js/catalog-store.js?v=20260604scan2"></script>
+  <script src="js/catalog-top-sellers.js?v=20260604scan2"></script>
+  <script>
+    (() => {
+      const promoCountBadge = document.getElementById("promoCountBadgeHome");
+      const promoIndicators = document.getElementById("promoIndicatorsHome");
+      const promoInner = document.getElementById("promoInnerHome");
+      const promoCarouselEl = document.getElementById("homePromoCarousel");
+      const promoPrevControl = promoCarouselEl ? promoCarouselEl.querySelector(".carousel-control-prev") : null;
+      const promoNextControl = promoCarouselEl ? promoCarouselEl.querySelector(".carousel-control-next") : null;
+      const featuredSellersBadge = document.getElementById("featuredSellersBadge");
+      const featuredSellersIndicators = document.getElementById("featuredSellersIndicators");
+      const featuredSellersInner = document.getElementById("featuredSellersInner");
+      const featuredSellersCarouselEl = document.getElementById("featuredSellersCarousel");
+      const featuredSellersPrev = featuredSellersCarouselEl ? featuredSellersCarouselEl.querySelector(".carousel-control-prev") : null;
+      const featuredSellersNext = featuredSellersCarouselEl ? featuredSellersCarouselEl.querySelector(".carousel-control-next") : null;
+      const mobilePromoMedia = window.matchMedia("(max-width: 767.98px)");
+      let homePromoItemsPerSlide = mobilePromoMedia.matches ? 1 : 3;
+      let featuredItemsPerSlide = mobilePromoMedia.matches ? 1 : 3;
+      const catalogApi = window.EUREKA_CATALOG;
+      const topSellerCodes = Array.isArray(window.EUREKA_TOP_SELLERS) ? window.EUREKA_TOP_SELLERS : [];
+      if (!promoCountBadge || !promoIndicators || !promoInner || !catalogApi) return;
+
+      function togglePromoControls(show) {
+        if (promoPrevControl) promoPrevControl.classList.toggle("d-none", !show);
+        if (promoNextControl) promoNextControl.classList.toggle("d-none", !show);
+      }
+
+      function toggleFeaturedControls(show) {
+        if (featuredSellersPrev) featuredSellersPrev.classList.toggle("d-none", !show);
+        if (featuredSellersNext) featuredSellersNext.classList.toggle("d-none", !show);
+      }
+
+      function chunkItems(items, chunkSize) {
+        const chunks = [];
+        for (let i = 0; i < items.length; i += chunkSize) {
+          chunks.push(items.slice(i, i + chunkSize));
+        }
+        return chunks;
+      }
+
+      function syncHomePromoCarousel() {
+        if (!promoCarouselEl || !window.bootstrap || !window.bootstrap.Carousel) return;
+        const carousel = window.bootstrap.Carousel.getOrCreateInstance(promoCarouselEl, {
+          interval: false,
+          touch: true,
+          wrap: true
+        });
+        carousel.pause();
+      }
+
+      function syncFeaturedSellersCarousel() {
+        if (!featuredSellersCarouselEl || !window.bootstrap || !window.bootstrap.Carousel) return;
+        const carousel = window.bootstrap.Carousel.getOrCreateInstance(featuredSellersCarouselEl, {
+          interval: false,
+          touch: true,
+          wrap: true
+        });
+        carousel.pause();
+      }
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function formatMoney(value) {
+        return Number(value || 0).toFixed(2);
+      }
+
+      function buildFeaturedFallbackImage(item) {
+        const safeName = escapeHtml(String(item && item.name ? item.name : "Producto").slice(0, 34));
+        const safeCategory = escapeHtml(String(item && item.categoryLabel ? item.categoryLabel : "Catalogo"));
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620">
+            <defs>
+              <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#f2fbf5"/>
+                <stop offset="100%" stop-color="#dff1e8"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="620" rx="32" fill="url(#g)"/>
+            <rect x="40" y="40" width="720" height="540" rx="28" fill="#fbfffd" stroke="#d2e7da" stroke-width="4"/>
+            <circle cx="196" cy="180" r="66" fill="#d9efe1"/>
+            <rect x="290" y="138" width="286" height="32" rx="16" fill="#d9efe1"/>
+            <rect x="290" y="190" width="228" height="24" rx="12" fill="#e6f6ee"/>
+            <rect x="118" y="326" width="564" height="96" rx="28" fill="#1f8d63"/>
+            <text x="400" y="384" text-anchor="middle" font-size="34" font-family="Montserrat, Arial, sans-serif" font-weight="800" fill="#ffffff">${safeCategory}</text>
+            <text x="400" y="488" text-anchor="middle" font-size="28" font-family="Montserrat, Arial, sans-serif" font-weight="700" fill="#204234">${safeName}</text>
+          </svg>
+        `.trim();
+        return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+      }
+
+      function renderFeaturedImage(item) {
+        const src = String(item && item.image ? item.image : "").trim() || buildFeaturedFallbackImage(item);
+        const alt = escapeHtml(item && item.name ? item.name : "Producto destacado");
+        return `<img src="${escapeHtml(src)}" alt="${alt}" loading="lazy" referrerpolicy="no-referrer">`;
+      }
+
+      function getPromoItems() {
+        const catalogData = catalogApi.getCatalogData();
+        const defaultPromoMap = catalogApi.buildDefaultPromoMap(catalogData);
+        const configMap = catalogApi.getCatalogConfigMap();
+        const items = [];
+
+        Object.entries(catalogData).forEach(([categoryKey, categoryData]) => {
+          const sourceItems = categoryData && Array.isArray(categoryData.items) ? categoryData.items : [];
+          sourceItems.forEach((item) => {
+            const configured = catalogApi.applyConfigToItem(item, configMap, defaultPromoMap);
+            if (!configured || !configured.active || !configured.isPromotion) return;
+            items.push({
+              ...configured,
+              categoryKey,
+              categoryLabel: categoryData.label
+            });
+          });
+        });
+
+        return items
+          .sort((a, b) => Number(b.discountPct || 0) - Number(a.discountPct || 0))
+          .slice(0, 12);
+      }
+
+      function getTopSellers() {
+        const catalogData = catalogApi.getCatalogData();
+        const defaultPromoMap = catalogApi.buildDefaultPromoMap(catalogData);
+        const configMap = catalogApi.getCatalogConfigMap();
+        const catalogByCode = new Map();
+
+        Object.entries(catalogData).forEach(([categoryKey, categoryData]) => {
+          const sourceItems = categoryData && Array.isArray(categoryData.items) ? categoryData.items : [];
+          sourceItems.forEach((item) => {
+            const configured = catalogApi.applyConfigToItem(item, configMap, defaultPromoMap);
+            if (!configured || !configured.active) return;
+            catalogByCode.set(String(configured.code || "").trim(), {
+              ...configured,
+              categoryKey,
+              categoryLabel: categoryData.label
+            });
+          });
+        });
+
+        return topSellerCodes
+          .map((code) => catalogByCode.get(String(code || "").trim()))
+          .filter(Boolean)
+          .slice(0, 9);
+      }
+
+      function renderHomePromos() {
+        const promoItems = getPromoItems();
+        promoCountBadge.textContent = `${promoItems.length} items`;
+
+        if (!promoItems.length) {
+          promoIndicators.innerHTML = "";
+          promoInner.innerHTML = `
+            <div class="carousel-item active">
+              <div class="text-center text-muted py-4">No hay promociones activas por ahora.</div>
+            </div>
+          `;
+          togglePromoControls(false);
+          return;
+        }
+
+        const slides = chunkItems(promoItems, homePromoItemsPerSlide);
+        togglePromoControls(slides.length > 1);
+
+        promoIndicators.innerHTML = slides.map((_, index) => `
+          <button
+            type="button"
+            data-bs-target="#homePromoCarousel"
+            data-bs-slide-to="${index}"
+            class="${index === 0 ? "active" : ""}"
+            ${index === 0 ? 'aria-current="true"' : ""}
+            aria-label="Promocion ${index + 1}"
+          ></button>
+        `).join("");
+
+        promoInner.innerHTML = slides.map((slideItems, slideIndex) => `
+          <div class="carousel-item ${slideIndex === 0 ? "active" : ""}">
+            <div class="row g-3">
+              ${slideItems.map((item) => `
+                <div class="col-md-4">
+                  <article class="promo-card h-100">
+                    <div class="promo-thumb${item.image ? "" : " placeholder"}">
+                      ${item.image ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" referrerpolicy="no-referrer">` : "Sin imagen"}
+                    </div>
+                    <div class="promo-body">
+                      <h5 class="promo-name">${escapeHtml(item.name)}</h5>
+                      <p class="promo-description">${escapeHtml(item.description ? item.description : `Categoria: ${item.categoryLabel}`)}</p>
+                      <div class="promo-meta-row">
+                        <p class="promo-category">${escapeHtml(item.categoryLabel)}</p>
+                        <span class="promo-discount">-${item.discountPct}%</span>
+                      </div>
+                      <p class="promo-code">${escapeHtml(item.code)}</p>
+                      <p class="promo-price-row">
+                        <strong class="promo-new-price">S/. ${item.price}</strong>
+                        <span class="promo-old-price">Antes : S/. ${item.originalPrice}</span>
+                      </p>
+                    </div>
+                    <a class="btn btn-success btn-sm w-100" href="tienda.html">Agregar promocion</a>
+                  </article>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `).join("");
+
+        syncHomePromoCarousel();
+      }
+
+      function renderFeaturedSellers() {
+        if (!featuredSellersBadge || !featuredSellersIndicators || !featuredSellersInner) return;
+        const items = getTopSellers();
+        featuredSellersBadge.textContent = `${items.length} productos`;
+
+        if (!items.length) {
+          featuredSellersIndicators.innerHTML = "";
+          featuredSellersInner.innerHTML = `
+            <div class="carousel-item active">
+              <div class="text-center text-muted py-4">No hay productos destacados disponibles por ahora.</div>
+            </div>
+          `;
+          toggleFeaturedControls(false);
+          return;
+        }
+
+        const slides = chunkItems(items, featuredItemsPerSlide);
+        toggleFeaturedControls(slides.length > 1);
+
+        featuredSellersIndicators.innerHTML = slides.map((_, index) => `
+          <button
+            type="button"
+            data-bs-target="#featuredSellersCarousel"
+            data-bs-slide-to="${index}"
+            class="${index === 0 ? "active" : ""}"
+            ${index === 0 ? 'aria-current="true"' : ""}
+            aria-label="Top vendido ${index + 1}"
+          ></button>
+        `).join("");
+
+        featuredSellersInner.innerHTML = slides.map((slideItems, slideIndex) => `
+          <div class="carousel-item ${slideIndex === 0 ? "active" : ""}">
+            <div class="row g-3">
+              ${slideItems.map((item) => `
+                <div class="col-md-4">
+                  <article class="featured-seller-card h-100">
+                    <div class="featured-seller-thumb">
+                      ${renderFeaturedImage(item)}
+                    </div>
+                    <div class="featured-seller-body">
+                      <div class="featured-seller-meta">
+                        <span class="featured-seller-category">${escapeHtml(item.categoryLabel)}</span>
+                        <span class="featured-seller-rank">Mas vendido</span>
+                      </div>
+                      <h3 class="featured-seller-name">${escapeHtml(item.name)}</h3>
+                      <p class="featured-seller-code">${escapeHtml(item.code)}</p>
+                      <p class="featured-seller-price">S/. ${formatMoney(item.price)}</p>
+                    </div>
+                    <a href="tienda.html" class="btn btn-success btn-sm w-100 rounded-pill">Ver en catalogo</a>
+                  </article>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `).join("");
+
+        syncFeaturedSellersCarousel();
+      }
+
+      window.addEventListener("storage", (event) => {
+        if (
+          event.key !== catalogApi.CATALOG_EDITOR_KEY
+          && event.key !== catalogApi.CATALOG_CUSTOM_PRODUCTS_KEY
+          && event.key !== catalogApi.CATALOG_SYNC_KEY
+        ) return;
+        renderHomePromos();
+        renderFeaturedSellers();
+      });
+
+      window.addEventListener("catalog:changed", () => {
+        renderHomePromos();
+        renderFeaturedSellers();
+      });
+
+      window.addEventListener("resize", () => {
+        const nextItemsPerSlide = mobilePromoMedia.matches ? 1 : 3;
+        if (nextItemsPerSlide === homePromoItemsPerSlide && nextItemsPerSlide === featuredItemsPerSlide) return;
+        homePromoItemsPerSlide = nextItemsPerSlide;
+        featuredItemsPerSlide = nextItemsPerSlide;
+        renderHomePromos();
+        renderFeaturedSellers();
+      });
+
+      window.addEventListener("load", () => {
+        syncHomePromoCarousel();
+        syncFeaturedSellersCarousel();
+      });
+
+      renderHomePromos();
+      renderFeaturedSellers();
+      catalogApi.refreshBackendCatalog(true)
+        .then((updated) => {
+          if (!updated) return;
+          renderHomePromos();
+          renderFeaturedSellers();
+        })
+        .catch(() => null)
+        .finally(() => {
+          document.documentElement.classList.remove("page-data-pending", "auth-preload");
+          document.body.classList.remove("auth-preload");
+        });
+    })();
+  </script>
+  <script src="js/auth-ui.js?v=20260605noflicker1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+

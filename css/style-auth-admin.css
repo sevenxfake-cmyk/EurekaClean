@@ -1,0 +1,578 @@
+html.auth-is-admin .custom-navbar {
+  background: linear-gradient(120deg, #061711 0%, #09241a 58%, #0e3525 100%) !important;
+  border-bottom: 1px solid rgba(84, 214, 141, .26);
+  box-shadow: 0 10px 26px rgba(2, 20, 13, .42);
+}
+
+html.auth-is-admin .navbar-brand span {
+  color: #f4fff8 !important;
+}
+
+html.auth-is-admin .nav-link {
+  color: #e6f7ec !important;
+}
+
+html.auth-is-admin .nav-link.active {
+  border-bottom: 2px solid #54d68d;
+}
+
+html.auth-is-admin .nav-link:hover {
+  opacity: 1;
+  color: #ffffff !important;
+}
+
+html.auth-preload.auth-has-session #navAuthSlot {
+  min-width: 210px;
+}
+
+html.auth-preload *,
+html.auth-preload *::before,
+html.auth-preload *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+html.auth-preload body {
+  visibility: visible !important;
+}
+
+html.auth-preload #navAuthSlot {
+  min-width: 78px;
+  min-height: 42px;
+}
+
+html:not(.auth-is-admin) [data-admin-only] {
+  display: none !important;
+}
+
+.nav-editor-link {
+  background: #000;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, .45);
+  border-radius: 999px;
+  padding: .32rem .82rem !important;
+  line-height: 1.1;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .28);
+}
+
+.nav-editor-link:hover,
+.nav-editor-link:focus,
+.nav-editor-link.active {
+  background: #151515;
+  color: #fff !important;
+  border-color: #fff;
+}
+
+html.auth-is-admin *,
+html.auth-is-admin *::before,
+html.auth-is-admin *::after {
+  animation-delay: 0s !important;
+  animation-duration: 0.01ms !important;
+  transition-delay: 0s !important;
+  transition-duration: 0.01ms !important;
+}
+
+html.auth-is-admin body.scroll-reveal-enabled .scroll-reveal-item {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+html.auth-is-admin .navbar-toggler {
+  border-color: rgba(214, 224, 236, .42);
+}
+
+html.auth-is-admin .navbar-toggler:focus {
+  box-shadow: 0 0 0 .18rem rgba(190, 200, 214, .18);
+}
+
+html.auth-is-admin .navbar-toggler-icon {
+  filter: invert(1) brightness(1.85);
+}
+
+html.auth-is-admin body.page-index,
+html.auth-is-admin body.page-acerca,
+html.auth-is-admin body.page-login {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(43, 186, 94, .12), transparent 30%),
+    radial-gradient(circle at 88% 10%, rgba(27, 143, 133, .1), transparent 28%),
+    #eef3ef !important;
+  color: #17231d !important;
+}
+
+html.auth-is-admin body.page-index .promo-shell,
+html.auth-is-admin body.page-index .promo-carousel-frame,
+html.auth-is-admin body.page-index .promo-card,
+html.auth-is-admin body.page-index .featured-sellers-shell,
+html.auth-is-admin body.page-index .featured-sellers-frame,
+html.auth-is-admin body.page-index .featured-seller-card,
+html.auth-is-admin body.page-index .new-product-shell,
+html.auth-is-admin body.page-index .blog-card,
+html.auth-is-admin body.page-acerca .info-card,
+html.auth-is-admin body.page-acerca .stat-box,
+html.auth-is-admin body.page-acerca .timeline-item,
+html.auth-is-admin body.page-acerca .feature-card,
+html.auth-is-admin body.page-acerca .coverage-chip,
+html.auth-is-admin body.page-login .auth-card {
+  background: #f8fbf9 !important;
+  border-color: rgba(20, 50, 35, .15) !important;
+  box-shadow: 0 14px 30px rgba(13, 38, 27, .08) !important;
+  color: #14231b !important;
+}
+
+html.auth-is-admin body.page-index .promo-title,
+html.auth-is-admin body.page-index .promo-name,
+html.auth-is-admin body.page-index .featured-seller-name,
+html.auth-is-admin body.page-index .clean-blog .section-head h2,
+html.auth-is-admin body.page-index .blog-card h3,
+html.auth-is-admin body.page-acerca .section-title,
+html.auth-is-admin body.page-acerca .info-card h3,
+html.auth-is-admin body.page-acerca .timeline-item h4,
+html.auth-is-admin body.page-acerca .coverage-chip strong,
+html.auth-is-admin body.page-login .auth-title,
+html.auth-is-admin body.page-login .form-label {
+  color: #1a2a21 !important;
+}
+
+html.auth-is-admin body.page-index .promo-subtitle,
+html.auth-is-admin body.page-index .promo-description,
+html.auth-is-admin body.page-index .featured-seller-code,
+html.auth-is-admin body.page-index .featured-sellers-subtitle,
+html.auth-is-admin body.page-index .blog-card p,
+html.auth-is-admin body.page-acerca .section-subtitle,
+html.auth-is-admin body.page-acerca .info-card p,
+html.auth-is-admin body.page-acerca .timeline-item p,
+html.auth-is-admin body.page-acerca .feature-list,
+html.auth-is-admin body.page-acerca .commitment-list,
+html.auth-is-admin body.page-acerca .coverage-chip span,
+html.auth-is-admin body.page-acerca .stat-box span,
+html.auth-is-admin body.page-login .auth-subtitle,
+html.auth-is-admin body.page-login .small,
+html.auth-is-admin body.page-login .text-muted {
+  color: #4f6156 !important;
+}
+
+html.auth-is-admin body.page-index .promo-category,
+html.auth-is-admin body.page-index .featured-seller-category,
+html.auth-is-admin body.page-acerca .sector-pill,
+html.auth-is-admin body.page-acerca .feature-index {
+  background: #e8f2ec !important;
+  color: #1c543c !important;
+  border-color: #cfe0d5 !important;
+}
+
+html.auth-is-admin body.page-index .promo-count-badge,
+html.auth-is-admin body.page-index .featured-sellers-badge,
+html.auth-is-admin body.page-acerca .stat-box {
+  background: #f2f7f4 !important;
+  color: #194a34 !important;
+  border-color: #d7e4dc !important;
+  box-shadow: none !important;
+}
+
+html.auth-is-admin body.page-index .promo-old-price,
+html.auth-is-admin body.page-acerca .stat-box strong {
+  color: #2f6e4e !important;
+}
+
+html.auth-is-admin body.page-login .form-control,
+html.auth-is-admin body.page-login .form-select,
+html.auth-is-admin body.page-login textarea {
+  background: #ffffff !important;
+  color: #1f2c24 !important;
+  border-color: #d3e0d7 !important;
+}
+
+html.auth-is-admin body.page-login .form-control::placeholder,
+html.auth-is-admin body.page-login textarea::placeholder {
+  color: #6e7f74 !important;
+}
+
+@media (max-width: 991.98px) {
+  html.auth-preload.auth-has-session #navAuthSlot {
+    min-width: 78px;
+  }
+}
+/* Static shared auth and theme UI styles */
+      .auth-user-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: #ffffff;
+        border-radius: 999px;
+        padding: .28rem .55rem .28rem .32rem;
+        text-decoration: none;
+        color: #1f2c24;
+        box-shadow: 0 6px 16px rgba(0,0,0,.12);
+        border: 1px solid rgba(0,0,0,.06);
+      }
+      html:not(.auth-is-admin) body [data-admin-only] {
+        display: none !important;
+      }
+      .auth-slot-wrap {
+        display: inline-flex;
+        align-items: center;
+        gap: .45rem;
+      } 
+      .theme-min-toggle.btn {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        min-height: 40px;
+        border: 1px solid rgba(23, 61, 47, .16) !important;
+        border-radius: 11px !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+        background-clip: padding-box;
+        -webkit-appearance: none;
+        appearance: none;
+        box-shadow: none !important;
+        transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+      }
+      .theme-min-toggle.btn[data-theme="light"] {
+        background: #f7faf8 !important;
+        border-color: rgba(23, 61, 47, .16) !important;
+        color: #176b42 !important;
+      }
+      .theme-min-toggle.btn[data-theme="dark"] {
+        background: #172433 !important;
+        border-color: rgba(220, 233, 246, .18) !important;
+        color: #e7eef7 !important;
+      }
+      .theme-min-toggle.btn:hover {
+        transform: translateY(-1px);
+      }
+      .theme-min-toggle.btn:focus,
+      .theme-min-toggle.btn:focus-visible,
+      .theme-min-toggle.btn:active {
+        outline: none;
+        box-shadow: 0 0 0 .18rem rgba(33, 184, 95, .16) !important;
+      }
+      .theme-min-glyph {
+        color: currentColor;
+        font-size: 18px;
+        line-height: 1;
+        transition: transform .25s ease;
+      }
+      .theme-min-toggle.btn[data-theme="dark"] .theme-min-glyph {
+        transform: rotate(-18deg);
+      }
+      .nav-editor-link {
+        background: #000;
+        color: #fff !important;
+        border: 1px solid rgba(255, 255, 255, .45);
+        border-radius: 999px;
+        padding: .32rem .82rem !important;
+        line-height: 1.1;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .28);
+      }
+      .nav-editor-link:hover,
+      .nav-editor-link:focus {
+        background: #151515;
+        color: #fff !important;
+      }
+      .nav-editor-link.active {
+        background: #111;
+        border-color: #fff;
+      }
+      html.auth-is-admin body .custom-navbar {
+        background: linear-gradient(120deg, #061711 0%, #09241a 58%, #0e3525 100%) !important;
+        border-bottom: 1px solid rgba(84, 214, 141, .26);
+        box-shadow: 0 10px 26px rgba(2, 20, 13, .42);
+      }
+      html.auth-is-admin body .navbar-brand span {
+        color: #f4fff8 !important;
+      }
+      html.auth-is-admin body .nav-link {
+        color: #e6f7ec !important;
+      }
+      html.auth-is-admin body .nav-link.active {
+        border-bottom: 2px solid #54d68d;
+      }
+      html.auth-is-admin body .nav-link:hover {
+        opacity: 1;
+        color: #ffffff !important;
+      }
+      html.auth-is-admin body .navbar-toggler {
+        border-color: rgba(214, 224, 236, .42);
+      }
+      html.auth-is-admin body .navbar-toggler:focus {
+        box-shadow: 0 0 0 .18rem rgba(190, 200, 214, .18);
+      }
+      html.auth-is-admin body .navbar-toggler-icon {
+        filter: invert(1) brightness(1.85);
+      }
+      html.auth-is-admin body.page-index,
+      html.auth-is-admin body.page-acerca,
+      html.auth-is-admin body.page-login {
+        background:
+          radial-gradient(circle at 10% 0%, rgba(43, 186, 94, .12), transparent 30%),
+          radial-gradient(circle at 88% 10%, rgba(27, 143, 133, .1), transparent 28%),
+          #eef3ef !important;
+        color: #17231d !important;
+      }
+      html.auth-is-admin body.page-index .promo-shell,
+      html.auth-is-admin body.page-index .promo-carousel-frame,
+      html.auth-is-admin body.page-index .promo-card,
+      html.auth-is-admin body.page-index .featured-sellers-shell,
+      html.auth-is-admin body.page-index .featured-sellers-frame,
+      html.auth-is-admin body.page-index .featured-seller-card,
+      html.auth-is-admin body.page-index .new-product-shell,
+      html.auth-is-admin body.page-index .blog-card,
+      html.auth-is-admin body.page-acerca .info-card,
+      html.auth-is-admin body.page-acerca .stat-box,
+      html.auth-is-admin body.page-acerca .timeline-item,
+      html.auth-is-admin body.page-acerca .feature-card,
+      html.auth-is-admin body.page-acerca .coverage-chip,
+      html.auth-is-admin body.page-login .auth-card {
+        background: #f8fbf9 !important;
+        border-color: rgba(20, 50, 35, .15) !important;
+        box-shadow: 0 14px 30px rgba(13, 38, 27, .08) !important;
+        color: #14231b !important;
+      }
+      html.auth-is-admin body.page-index .promo-title,
+      html.auth-is-admin body.page-index .promo-name,
+      html.auth-is-admin body.page-index .featured-seller-name,
+      html.auth-is-admin body.page-index .clean-blog .section-head h2,
+      html.auth-is-admin body.page-index .blog-card h3,
+      html.auth-is-admin body.page-acerca .section-title,
+      html.auth-is-admin body.page-acerca .info-card h3,
+      html.auth-is-admin body.page-acerca .timeline-item h4,
+      html.auth-is-admin body.page-acerca .coverage-chip strong,
+      html.auth-is-admin body.page-login .auth-title,
+      html.auth-is-admin body.page-login .form-label {
+        color: #1a2a21 !important;
+      }
+      html.auth-is-admin body.page-index .promo-subtitle,
+      html.auth-is-admin body.page-index .promo-description,
+      html.auth-is-admin body.page-index .featured-seller-code,
+      html.auth-is-admin body.page-index .featured-sellers-subtitle,
+      html.auth-is-admin body.page-index .blog-card p,
+      html.auth-is-admin body.page-acerca .section-subtitle,
+      html.auth-is-admin body.page-acerca .info-card p,
+      html.auth-is-admin body.page-acerca .timeline-item p,
+      html.auth-is-admin body.page-acerca .feature-list,
+      html.auth-is-admin body.page-acerca .commitment-list,
+      html.auth-is-admin body.page-acerca .coverage-chip span,
+      html.auth-is-admin body.page-acerca .stat-box span,
+      html.auth-is-admin body.page-login .auth-subtitle,
+      html.auth-is-admin body.page-login .small,
+      html.auth-is-admin body.page-login .text-muted {
+        color: #4f6156 !important;
+      }
+      html.auth-is-admin body.page-index .promo-category,
+      html.auth-is-admin body.page-index .featured-seller-category,
+      html.auth-is-admin body.page-acerca .sector-pill,
+      html.auth-is-admin body.page-acerca .feature-index {
+        background: #e8f2ec !important;
+        color: #1c543c !important;
+        border-color: #cfe0d5 !important;
+      }
+      html.auth-is-admin body.page-index .promo-count-badge,
+      html.auth-is-admin body.page-index .featured-sellers-badge,
+      html.auth-is-admin body.page-acerca .stat-box {
+        background: #f2f7f4 !important;
+        color: #194a34 !important;
+        border-color: #d7e4dc !important;
+        box-shadow: none !important;
+      }
+      html.auth-is-admin body.page-index .promo-old-price,
+      html.auth-is-admin body.page-acerca .stat-box strong {
+        color: #2f6e4e !important;
+      }
+      html.auth-is-admin body.page-login .form-control,
+      html.auth-is-admin body.page-login .form-select,
+      html.auth-is-admin body.page-login textarea {
+        background: #ffffff !important;
+        color: #1f2c24 !important;
+        border-color: #d3e0d7 !important;
+      }
+      html.auth-is-admin body.page-login .form-control::placeholder,
+      html.auth-is-admin body.page-login textarea::placeholder {
+        color: #6e7f74 !important;
+      }
+      .auth-user-pill:hover {
+        color: #1f2c24;
+        background: #f8faf9;
+      }
+      .auth-user-pill.admin {
+        background: linear-gradient(135deg, #eafff0, #c9f4d8);
+        border-color: rgba(33, 184, 95, .36);
+        color: #123d29;
+      }
+      .auth-user-pill.admin:hover {
+        background: linear-gradient(135deg, #f4fff7, #d8f8e2);
+        color: #0f3323;
+      }
+      .auth-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        color: #fff;
+        background: linear-gradient(135deg, #47c924, #2f8d18);
+        text-transform: uppercase;
+      }
+      .auth-user-pill.admin .auth-avatar {
+        background: linear-gradient(135deg, #21b85f, #147a45);
+        color: #ffffff;
+      }
+      .auth-email {
+        font-size: .8rem;
+        font-weight: 700;
+        max-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .auth-role-badge {
+        font-size: .62rem;
+        font-weight: 800;
+        letter-spacing: .04em;
+        color: #0f6240;
+        background: #ffffff;
+        border: 1px solid rgba(33, 184, 95, .28);
+        border-radius: 999px;
+        padding: .12rem .42rem;
+        line-height: 1.1;
+      }
+      .auth-logout-btn {
+        width: 38px;
+        min-width: 38px;
+        max-width: 38px;
+        height: 38px;
+        border: 1px solid rgba(33, 184, 95, .24);
+        border-radius: 50%;
+        padding: 0;
+        color: #16804b;
+        background: rgba(33, 184, 95, .1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: .76rem;
+        font-weight: 800;
+        box-shadow: none;
+      }
+      .auth-logout-btn:hover {
+        background: rgba(33, 184, 95, .16);
+        color: #0f6240;
+      }
+      .auth-logout-btn svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+      .auth-logout-text {
+        line-height: 1;
+      }
+      html.theme-light body {
+        color-scheme: light;
+      }
+      html.theme-dark body {
+        background: #0f1720;
+        color: #e6edf5;
+        color-scheme: dark;
+      }
+      html.theme-dark body .text-dark,
+      html.theme-dark body .text-black,
+      html.theme-dark body .text-body,
+      html.theme-dark body .text-body-emphasis,
+      html.theme-dark body .text-secondary,
+      html.theme-dark body .text-body-secondary,
+      html.theme-dark body .text-black-50,
+      html.theme-dark body .form-label,
+      html.theme-dark body label {
+        color: #e6edf5 !important;
+      }
+      html.theme-dark body a:not(.nav-link):not(.btn):not(.navbar-brand) {
+        color: #9acbff;
+      }
+      html.theme-dark body .lead,
+      html.theme-dark body .small,
+      html.theme-dark body .small-note,
+      html.theme-dark body .section-subtitle {
+        color: #c5d3e1 !important;
+      }
+      html.theme-dark body .auth-logout-btn,
+      html.theme-dark body .auth-user-pill {
+        background: #1a2633;
+        color: #e6edf5;
+        border-color: rgba(216, 227, 239, .2);
+      }
+      html.theme-dark body .auth-user-pill:hover,
+      html.theme-dark body .auth-logout-btn:hover {
+        background: #223244;
+      }
+      html.theme-dark body .bg-light,
+      html.theme-dark body .footer {
+        background: #121d28 !important;
+        color: #e6edf5 !important;
+      }
+      html.theme-dark body .card,
+      html.theme-dark body .auth-card,
+      html.theme-dark body .info-card,
+      html.theme-dark body .timeline-item,
+      html.theme-dark body .stat-box,
+      html.theme-dark body .contact-card,
+      html.theme-dark body .contact-panel {
+        background: #172433 !important;
+        color: #e6edf5 !important;
+        border-color: rgba(219, 230, 242, .12) !important;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, .26);
+      }
+      html.theme-dark body .text-muted {
+        color: #b5c5d5 !important;
+      }
+      html.theme-dark body .btn-light {
+        background: #1f2c3a;
+        color: #e6edf5;
+        border-color: rgba(219, 230, 242, .2);
+      }
+      html.theme-dark body .custom-navbar .btn-light {
+        background: #ffffff;
+        color: #212529;
+        border-color: transparent;
+      }
+      html.theme-dark body .form-control,
+      html.theme-dark body .form-select,
+      html.theme-dark body textarea {
+        background: #111b27;
+        color: #e6edf5;
+        border-color: rgba(219, 230, 242, .18);
+      }
+      html.theme-dark body .form-control::placeholder,
+      html.theme-dark body textarea::placeholder {
+        color: #8ea3b8;
+      }
+      @media (max-width: 991.98px) {
+        .auth-email {
+          max-width: 120px;
+        }
+        .auth-slot-wrap {
+          margin-top: .45rem;
+        }
+        .nav-theme-item {
+          margin-top: 0;
+        }
+        .theme-min-toggle.btn {
+          width: 38px;
+          min-width: 38px;
+          height: 38px;
+          min-height: 38px;
+        }
+        .theme-min-glyph {
+          font-size: 17px;
+        }
+        .auth-logout-btn {
+          min-width: 78px;
+          height: 36px;
+          padding: 0 .54rem;
+        }
+      }
