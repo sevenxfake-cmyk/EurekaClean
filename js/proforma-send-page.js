@@ -4,15 +4,15 @@
   const ADMIN_EMAIL = String(window.EUREKA_ADMIN_EMAIL || "").trim().toLowerCase();
   const PROFORMA_HISTORY_PREFIX = "eurekaclean_proforma_history_";
   const PROFORMA_LAST_KEY_PREFIX = "eurekaclean_proforma_last_";
-  const WHATSAPP_NUMBER = "51981292376";
-  const WHATSAPP_MESSAGE = "Buen dia, adjunto la proforma generada para su revision. Quedo atento a la confirmacion de disponibilidad, forma de pago y coordinacion de entrega o recojo en tienda. Gracias.";
+  const WHATSAPP_NUMBER = String(window.EUREKA_ORDER_WHATSAPP || "51981292376");
+  const ORDER_EMAIL = String(window.EUREKA_ORDER_EMAIL || "eurekaverdeweb@gmail.com");
   const LOGO_PATH = "img/logo_proforma.png";
   const COMPANY_INFO = {
     name: "EUREKACLEAN S.A.C.",
     ruc: "20614833140",
     address: "Lima, Peru",
-    phone: "+51 999 999 999",
-    email: "ventas@eurekaclean.com"
+    phone: "+51 981 292 376",
+    email: "eurekaverdeweb@gmail.com"
   };
 
   const sendAlert = document.getElementById("sendAlert");
@@ -20,6 +20,9 @@
   const sendPreview = document.getElementById("sendPreview");
   const sendDownloadBtn = document.getElementById("sendDownloadBtn");
   const sendWhatsappBtn = document.getElementById("sendWhatsappBtn");
+  const sendEmailBtn = document.getElementById("sendEmailBtn");
+  const sendAutoBtn = document.getElementById("sendAutoBtn");
+  const sendAutoInfo = document.getElementById("sendAutoInfo");
   const urlParams = new URLSearchParams(window.location.search || "");
   const isPrintMode = urlParams.get("print") === "1";
   let currentRecord = null;
@@ -260,15 +263,111 @@
     return true;
   }
 
+  function buildOrderMessage(record) {
+    if (!record) return "";
+    const items = record.items.map((item) => {
+      const qty = Math.max(1, Math.floor(Number(item.qty) || 1));
+      const subtotal = Number(item.price || 0) * qty;
+      return `- ${qty} x ${item.name} (${item.code || "s/c"}) = ${formatMoney(subtotal)}`;
+    }).join("\n");
+    const parts = [
+      "Hola, equipo EurekaClean. Estoy interesado/a en esta cotización:",
+      `Referencia: ${record.serial}`,
+      `Cliente: ${record.customerName || "Invitado"}`,
+      `Teléfono: ${record.customerPhone || "No indicado"}`,
+      `Correo: ${record.customerEmail || "No indicado"}`,
+      record.customerRuc ? `RUC: ${record.customerRuc}` : "",
+      record.customerAddress ? `Dirección: ${record.customerAddress}` : "",
+      "",
+      "Productos solicitados:",
+      items,
+      "",
+      `MONTO TOTAL REFERENCIAL: ${formatMoney(record.totalAmount)}`,
+      "",
+      "¿Pueden confirmar la disponibilidad, el importe final y cómo puedo pagar?",
+      "Esta proforma de prueba no es una boleta ni un comprobante de pago."
+    ];
+    return parts.filter((part) => part !== "").join("\n").slice(0, 9500);
+  }
+
   function openWhatsappWeb() {
-    const url = `https://web.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+    if (!currentRecord) return;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildOrderMessage(currentRecord))}`;
     const popup = window.open(url, "_blank", "noopener,noreferrer");
     if (popup) {
-      popup.opener = null;
-      setAlert("success", "WhatsApp Web se abrio. Adjunta manualmente el PDF descargado.");
+      setAlert("info", "Se abrió WhatsApp con el pedido y el monto. Presiona Enviar allí para entregarlo al comercio.");
       return;
     }
-    setAlert("warning", "Tu navegador bloqueo WhatsApp Web. Permite ventanas emergentes e intenta nuevamente.");
+    setAlert("warning", "Tu navegador bloqueó WhatsApp. Abre el enlace y envía el mensaje manualmente.");
+    window.location.href = url;
+  }
+
+  function openEmailDraft() {
+    if (!currentRecord) return;
+    const subject = `Consulta de proforma ${currentRecord.serial} - EurekaClean`;
+    const body = buildOrderMessage(currentRecord);
+    const url = `mailto:${ORDER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setAlert("info", `Se abrirá tu correo con destino a ${ORDER_EMAIL}. Para que llegue, debes presionar Enviar.`);
+    window.location.href = url;
+  }
+
+  async function checkAutomaticDelivery() {
+    if (!sendAutoBtn || !sendAutoInfo) return;
+    sendAutoBtn.disabled = true;
+    try {
+      const response = await fetch("/api/order-notify", { method: "GET", cache: "no-store" });
+      if (!response.ok) throw new Error("Sin servicio configurado");
+      const data = await response.json();
+      if (data.ready === true) {
+        sendAutoBtn.disabled = false;
+        sendAutoInfo.textContent = "Notificación automática disponible. Al confirmar se intentará enviar al correo y WhatsApp del comercio.";
+      } else {
+        sendAutoInfo.textContent = "Envío automático pendiente de configurar (correo y WhatsApp Business API). Usa las opciones manuales.";
+      }
+    } catch (error) {
+      sendAutoInfo.textContent = "Servicio automático no disponible. Puedes enviar tu pedido desde WhatsApp o tu aplicación de correo.";
+    }
+  }
+
+  async function requestAutomaticDelivery() {
+    if (!currentRecord || !sendAutoBtn || sendAutoBtn.disabled) return;
+    sendAutoBtn.disabled = true;
+    sendAutoBtn.textContent = "Procesando solicitud...";
+    try {
+      const response = await fetch("/api/order-notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          serial: currentRecord.serial,
+          customer: {
+            name: currentRecord.customerName,
+            email: currentRecord.customerEmail,
+            phone: currentRecord.customerPhone,
+            ruc: currentRecord.customerRuc,
+            address: currentRecord.customerAddress
+          },
+          items: currentRecord.items.map((item) => ({
+            code: item.code,
+            qty: item.qty
+          }))
+        })
+      });
+      const result = await response.json();
+      const emailSent = result.email === "sent";
+      const whatsappSent = result.whatsapp === "sent";
+      if (emailSent && whatsappSent) {
+        setAlert("success", `Pedido ${result.reference || currentRecord.serial} notificado al correo y WhatsApp del comercio. Importe validado: ${formatMoney(result.total)}.`);
+        sendAutoBtn.textContent = "Notificación enviada";
+      } else {
+        setAlert("warning", `Resultado: correo ${emailSent ? "enviado" : "no enviado"}; WhatsApp ${whatsappSent ? "enviado" : "no enviado"}. No se confirmará ningún canal sin respuesta del proveedor. Puedes utilizar los botones manuales.`);
+        sendAutoBtn.textContent = "Reintentar notificación";
+        sendAutoBtn.disabled = !(result && result.ready);
+      }
+    } catch (error) {
+      setAlert("danger", "No se pudo contactar el servicio de notificaciones. No se ha confirmado ninguna entrega; utiliza los botones manuales.");
+      sendAutoBtn.textContent = "Reintentar notificación";
+      sendAutoBtn.disabled = false;
+    }
   }
 
   function init() {
@@ -304,6 +403,7 @@
     sendPanel.classList.remove("d-none");
     hideAlert();
     releasePreload();
+    if (!isPrintMode) checkAutomaticDelivery();
   }
 
   if (sendDownloadBtn) {
@@ -312,6 +412,8 @@
   if (sendWhatsappBtn) {
     sendWhatsappBtn.addEventListener("click", openWhatsappWeb);
   }
+  if (sendEmailBtn) sendEmailBtn.addEventListener("click", openEmailDraft);
+  if (sendAutoBtn) sendAutoBtn.addEventListener("click", requestAutomaticDelivery);
 
   init();
 })();

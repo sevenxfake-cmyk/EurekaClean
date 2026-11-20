@@ -6,7 +6,7 @@
     const PROFORMA_META_PREFIX = "eurekaclean_proforma_meta_";
     const PROFORMA_HISTORY_PREFIX = "eurekaclean_proforma_history_";
     const PROFORMA_LAST_KEY_PREFIX = "eurekaclean_proforma_last_";
-    const COMPANY_INFO = {  name : "EUREKACLEAN S.A.C.",  ruc : "20614833140",  address : "Lima, Peru",  phone : "+51 999 999 999",  email : "ventas@eurekaclean.com"
+    const COMPANY_INFO = {  name : "EUREKACLEAN S.A.C.",  ruc : "20614833140",  address : "Lima, Peru",  phone : "+51 981 292 376",  email : "eurekaverdeweb@gmail.com"
     };
     const WHATSAPP_NUMBER = "51981292376";
     const LOGO_PATH = "img/logo_proforma.png";
