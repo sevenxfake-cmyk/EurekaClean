@@ -55,9 +55,9 @@
 
   <section class="contact-hero">
     <div class="container">
-      <h1 class="display-5 mb-3">Canales directos de atenciÃ³n</h1>
+      <h1 class="display-5 mb-3">Canales directos de atención</h1>
       <p class="lead mb-0">
-        Si necesitas una cotizaciÃ³n o recomendaciÃ³n tÃ©cnica, escrÃ­benos por WhatsApp o usa el formulario.
+        Si necesitas una cotización o recomendación técnica, escríbenos por WhatsApp o usa el formulario.
         Nuestro equipo responde en horario laboral y prioriza consultas comerciales.
       </p>
     </div>
@@ -89,16 +89,16 @@
             <div class="col-sm-6 col-lg-12">
               <article class="contact-card">
                 <div class="contact-icon map"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i></div>
-                <h3>UbicaciÃ³n</h3>
-                <p>Lima, PerÃº</p>
+                <h3>Ubicación</h3>
+                <p>Lima, Perú</p>
               </article>
             </div>
 
             <div class="col-sm-6 col-lg-12">
               <article class="contact-card">
                 <div class="contact-icon time"><i class="bi bi-clock-fill" aria-hidden="true"></i></div>
-                <h3>Horario de atenciÃ³n</h3>
-                <p>Lunes a SÃ¡bado, 8:00 a.m. - 6:00 p.m.</p>
+                <h3>Horario de atención</h3>
+                <p>Lunes a Sábado, 8:00 a.m. - 6:00 p.m.</p>
               </article>
             </div>
           </div>
@@ -106,7 +106,7 @@
 
         <div class="col-lg-7">
           <article class="form-card">
-            <h2 class="h4 fw-bold mb-3">Solicitar atenciÃ³n</h2>
+            <h2 class="h4 fw-bold mb-3">Solicitar atención</h2>
             <p class="small-note mb-4">Si prefieres, este formulario puede abrir WhatsApp con tu mensaje listo.</p>
 
             <form id="contactForm" novalidate>
@@ -116,7 +116,7 @@
                   <input id="name" type="text" class="form-control" placeholder="Tu nombre" required>
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label fw-semibold" for="phone">TelÃ©fono</label>
+                  <label class="form-label fw-semibold" for="phone">Teléfono</label>
                   <input id="phone" type="tel" class="form-control" placeholder="999 000 111" required>
                 </div>
                 <div class="col-12">
@@ -124,11 +124,11 @@
                   <input id="email" type="email" class="form-control" placeholder="nombre@correo.com" required>
                 </div>
                 <div class="col-12">
-                  <label class="form-label fw-semibold" for="subject">Asunto</label>  <input id="subject" type="text" class="form-control" placeholder="Ejemplo : CotizaciÃ³n para oficina" required>
+                  <label class="form-label fw-semibold" for="subject">Asunto</label>  <input id="subject" type="text" class="form-control" placeholder="Ejemplo : Cotización para oficina" required>
                 </div>
                 <div class="col-12">
                   <label class="form-label fw-semibold" for="message">Mensaje</label>
-                  <textarea id="message" rows="5" class="form-control" placeholder="CuÃ©ntanos quÃ© productos necesitas" required></textarea>
+                  <textarea id="message" rows="5" class="form-control" placeholder="Cuéntanos qué productos necesitas" required></textarea>
                 </div>
               </div>
 
@@ -152,9 +152,9 @@
           <div class="col-lg-4">
             <h2>Visita nuestro catalogo principal</h2>
             <p>
-              Te esperamos para asesorarte en persona y mostrarte nuestro catÃ¡logo completo de productos de limpieza.
+              Te esperamos para asesorarte en persona y mostrarte nuestro catálogo completo de productos de limpieza.
             </p>
-            <p class="small-note mb-3">  UbicaciÃ³n : 12Â°02'42.5&quot;S 77Â°02'48.8&quot;W
+            <p class="small-note mb-3">  Ubicación : 12°02'42.5&quot;S 77°02'48.8&quot;W
             </p>
             <a
               class="btn btn-brand rounded-pill px-4"
@@ -162,7 +162,7 @@
               rel="noopener"
               href="https://www.google.com/maps/search/?api=1&query=-12.045139,-77.046889"
             >
-              Ver cÃ³mo llegar
+              Ver cómo llegar
             </a>
           </div>
           <div class="col-lg-8">
@@ -207,7 +207,7 @@
       const subject = document.getElementById('subject').value.trim();
       const message = document.getElementById('message').value.trim();
 
-      return `Hola EUREKACLEAN.%0A%0A` +  `Nombre : ${encodeURIComponent(name)}%0A` +  `TelÃ©fono : ${encodeURIComponent(phone)}%0A` +  `Correo : ${encodeURIComponent(email)}%0A` +  `Asunto : ${encodeURIComponent(subject)}%0A` +  `Mensaje : ${encodeURIComponent(message)}`;
+      return `Hola EUREKACLEAN.%0A%0A` +  `Nombre : ${encodeURIComponent(name)}%0A` +  `Teléfono : ${encodeURIComponent(phone)}%0A` +  `Correo : ${encodeURIComponent(email)}%0A` +  `Asunto : ${encodeURIComponent(subject)}%0A` +  `Mensaje : ${encodeURIComponent(message)}`;
     }
 
     function showAlert(type, text) {
@@ -234,7 +234,7 @@
         showAlert('warning', 'Completa todos los campos para enviar tu consulta.');
         return;
       }
-      showAlert('success', 'Consulta registrada. TambiÃ©n puedes enviarla por WhatsApp con el botÃ³n verde.');
+      showAlert('success', 'Consulta registrada. También puedes enviarla por WhatsApp con el botón verde.');
       form.reset();
     });
 
