@@ -1,4 +1,6 @@
 import os
+import json
+from pathlib import Path
 
 
 def _env_text(name, default=""):
@@ -13,8 +15,14 @@ def _env_flag(name, default=True):
 
 
 def get_seed_catalog():
-    # El catalogo inicia vacio y se administra desde el editor.
-    return {}
+    # Importa este catalogo solamente cuando se crea una base SQLite nueva.
+    # No modifica una base de datos que ya tiene categorias.
+    path = Path(__file__).resolve().parent / "catalogo_exportado.json"
+    if not path.is_file():
+        return {}
+    with path.open("r", encoding="utf-8") as file:
+        catalog = json.load(file)
+    return catalog if isinstance(catalog, dict) else {}
 
 
 def get_default_users():
