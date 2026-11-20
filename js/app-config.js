@@ -151,9 +151,9 @@
   const previewFromMeta = parseBooleanFlag(readMetaContent("eureka-design-preview"));
   const previewFromStorage = parseBooleanFlag(safeGetLocalStorage(DESIGN_PREVIEW_KEY));
   const previewStorageAllowed = isFile || isLocalHost;
-  const designPreviewEnabled = previewFromMeta !== null
+  const designPreviewEnabled = Boolean(window.EUREKA_DEMO_ENABLED) || (previewFromMeta !== null
     ? previewFromMeta
-    : (previewStorageAllowed && previewFromStorage !== null ? previewFromStorage : isFile);
+    : (previewStorageAllowed && previewFromStorage !== null ? previewFromStorage : isFile));
   const previewModeFromMeta = normalizePreviewMode(readMetaContent("eureka-design-preview-mode"));
   const previewModeFromStorage = previewStorageAllowed
     ? normalizePreviewMode(safeGetLocalStorage(DESIGN_PREVIEW_MODE_KEY))
@@ -290,11 +290,11 @@
   function buildPreviewSession(role = "customer") {
     const safeRole = String(role || "").trim().toLowerCase() === "admin" ? "admin" : "customer";
     const email = safeRole === "admin"
-      ? "admin.preview@eurekaclean.local"
-      : "cliente.preview@eurekaclean.local";
+      ? "admin.demo@eurekaclean.local"
+      : "cliente.demo@eurekaclean.local";
     const name = safeRole === "admin"
-      ? "Administrador Vista"
-      : "Cliente Vista";
+      ? "Administrador Demo"
+      : "Cliente Demo";
     return {
       name,
       email,
@@ -337,6 +337,10 @@
   window.EUREKA_CONFIG.sessionSyncKey = SESSION_SYNC_KEY;
   window.EUREKA_CONFIG.designPreviewKey = DESIGN_PREVIEW_KEY;
   window.EUREKA_CONFIG.designPreviewModeKey = DESIGN_PREVIEW_MODE_KEY;
+
+  window.EUREKA_DEMO_GUEST_SESSION = Object.freeze({
+    name: "Invitado", email: "invitado@demo.eurekaclean.local", role: "guest", token: "", preview: true
+  });
 
   window.EUREKA_PREVIEW = window.EUREKA_PREVIEW || {
     enabled: designPreviewEnabled,

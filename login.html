@@ -75,14 +75,17 @@
 
         <div id="designPreviewPanel" class="d-none mt-3">
           <div class="border rounded-4 p-3" style="border-color: rgba(255,255,255,.12) !important; background: rgba(255,255,255,.04);">
-            <p class="small fw-semibold mb-2">Vista rápida para diseño</p>
+            <p class="small fw-semibold mb-1">Acceso de prueba · EurekaClean</p>
+            <p class="small text-muted mb-3">Elige un perfil demo sin contraseña. Las acciones se guardan solo en este navegador; no son cuentas reales.</p>
             <div class="d-grid gap-2">
-              <button type="button" id="previewGuestBtn" class="btn btn-outline-light btn-sm">Vista sin loguearse</button>
-              <button type="button" id="previewCustomerBtn" class="btn btn-success btn-sm">Vista Cliente (Logueada)</button>
-              <button type="button" id="previewAdminBtn" class="btn btn-dark btn-sm">Vista Administrador</button>
+              <button type="button" id="previewGuestBtn" class="btn btn-outline-light btn-sm">Continuar como invitado</button>
+              <button type="button" id="previewCustomerBtn" class="btn btn-success btn-sm">Entrar como Cliente Demo</button>
+              <button type="button" id="previewAdminBtn" class="btn btn-dark btn-sm">Entrar como Administrador Demo</button>
             </div>
           </div>
         </div>
+
+        <p id="demoAuthNote" class="small text-muted mt-3 mb-0 d-none">Registro e inicio de sesión reales no disponibles en esta demostración. Usa una de las opciones de prueba.</p>
 
         <form id="loginForm" novalidate>
           <div class="mb-3">
@@ -548,6 +551,11 @@
       if (!designPreviewPanel) return;
       designPreviewPanel.classList.toggle("d-none", !isDesignPreview);
       if (!isDesignPreview) return;
+      const demoNote = document.getElementById("demoAuthNote");
+      if (demoNote) demoNote.classList.remove("d-none");
+      if (loginForm) loginForm.classList.add("d-none");
+      if (registerForm) registerForm.classList.add("d-none");
+      if (authSwitch) authSwitch.classList.add("d-none");
 
       const activeMode = previewStore && typeof previewStore.getMode === "function"
         ? previewStore.getMode()
@@ -571,6 +579,25 @@
 
     function applyPreviewMode(mode, targetHref) {
       if (!isDesignPreview || !previewStore || typeof previewStore.setMode !== "function") return;
+      // Conservar el carrito del invitado al entrar como cliente demo.
+      if (mode === "customer") {
+        try {
+          const fromKey = "eurekaclean_proforma_invitado@demo.eurekaclean.local";
+          const toKey = "eurekaclean_proforma_cliente.demo@eurekaclean.local";
+          const guestItems = JSON.parse(localStorage.getItem(fromKey) || "[]");
+          const customerItems = JSON.parse(localStorage.getItem(toKey) || "[]");
+          if (Array.isArray(guestItems) && guestItems.length) {
+            const merged = Array.isArray(customerItems) ? customerItems.slice() : [];
+            guestItems.forEach((incoming) => {
+              const index = merged.findIndex((p) => String(p.code || p.id) === String(incoming.code || incoming.id));
+              if (index >= 0) merged[index].qty = Math.max(1, Number(merged[index].qty || 0)) + Math.max(1, Number(incoming.qty || 0));
+              else merged.push(incoming);
+            });
+            localStorage.setItem(toKey, JSON.stringify(merged));
+            localStorage.removeItem(fromKey);
+          }
+        } catch (error) { /* La transferencia es opcional */ }
+      }
       if (authStore && typeof authStore.clearSession === "function") {
         authStore.clearSession("preview-switch");
       }
@@ -610,7 +637,7 @@
       const token = session && session.token ? String(session.token).trim() : "";
 
       if (!email || !token) {
-        authSwitch.classList.remove("d-none");
+        if (!isDesignPreview) authSwitch.classList.remove("d-none");
         logoutBtn.classList.add("d-none");
         if (isDesignPreview) {
           showAlert("info", "Vista local de diseno: esta pantalla se muestra completa sin depender del backend.");

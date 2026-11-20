@@ -4,6 +4,10 @@
   //   apiBase: "https://api.tu-dominio.com",
   //   adminEmail: "admin@tu-dominio.com"
   // };
+  // Modo de demostración: permisos y cuentas simulados solo en el navegador.
+  window.EUREKA_DEMO_ENABLED = true;
+  window.EUREKA_ORDER_EMAIL = "eurekaverdeweb@gmail.com";
+  window.EUREKA_ORDER_WHATSAPP = "51981292376";
   const runtime = window.EUREKA_RUNTIME_CONFIG || {};
 
   if (typeof runtime.apiBase === "string") {
