@@ -754,7 +754,8 @@
       ? sanitizeImageUrl(entry.image, true)
       : sanitizeImageUrl(source.image, true);
 
-    const discountedPrice = Number((effectiveBasePrice * (1 - discountPct / 100)).toFixed(2));
+    // Redondeo monetario a céntimos: evita diferencias entre navegador y servidor.
+    const discountedPrice = Math.round((Math.round(effectiveBasePrice * 100) * (100 - discountPct)) / 100) / 100;
     const finalPrice = Number(Math.max(0, discountedPrice).toFixed(2));
 
     return {

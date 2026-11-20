@@ -89,7 +89,7 @@ function validateAndQuote(payload) {
     const base = Number(product.price);
     const discount = Math.max(0, Math.min(90, Number(product.discountPct || 0)));
     if (!Number.isFinite(base) || base < 0) throw new Error("Precio inválido del catálogo: " + code);
-    const unit = Number((base * (1 - discount / 100)).toFixed(2));
+    const unit = Math.round((Math.round(base * 100) * (100 - discount)) / 100) / 100;
     return { code, name: safeText(product.name, 120), qty, unit, subtotal: Number((unit * qty).toFixed(2)) };
   });
   const total = Number(rows.reduce((n, row) => n + row.subtotal, 0).toFixed(2));
